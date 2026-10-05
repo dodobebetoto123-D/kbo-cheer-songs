@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>삼성 라이온즈 응원가 플레이어</title>
+<title>KBO 응원가 플레이어</title>
 <style>
   :root{
     --blue:#074CA1; --blue2:#0a63ce; --sky:#59b7ff; --bg:#0b1220; --card:#141f36;
@@ -12,15 +12,19 @@
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;padding-bottom:160px}
-  header{background:linear-gradient(135deg,#063a7d,#0a63ce);padding:26px 18px 20px;text-align:center}
-  header .lion{font-size:40px}
+  header{background:linear-gradient(135deg,#1b2c52,#31456e);padding:26px 18px 20px;text-align:center}
+  header.samsung{background:linear-gradient(135deg,#063a7d,#0a63ce)}
+  header.lotte{background:linear-gradient(135deg,#041e42,#8f1023)}
   header h1{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-top:4px}
   header p{color:#cfe4ff;font-size:13px;margin-top:5px}
+  #hdrBadge{font-size:40px;line-height:1.1}
+  #hdrBadge.ic{width:40px;height:40px}
   .ic{width:20px;height:20px;flex:none;display:inline-block;vertical-align:middle}
   .ic svg{width:100%;height:100%;display:block}
   .tabs{display:flex;gap:8px;padding:14px 16px 4px;position:sticky;top:0;background:var(--bg);z-index:5}
   .tab{flex:1;padding:11px 0;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--sub);font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
   .tab.on{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+  .tab.home-btn{flex:0 0 48px}
   main{padding:10px 16px 0;max-width:720px;margin:0 auto}
   .group-head{display:flex;align-items:center;justify-content:space-between;margin:20px 2px 10px}
   .group-head h2{font-size:16px;font-weight:800;display:flex;align-items:center;gap:7px}
@@ -39,6 +43,14 @@
   .eq i:nth-child(2){animation-delay:.2s}.eq i:nth-child(3){animation-delay:.4s}
   @keyframes eq{0%,100%{height:5px}50%{height:15px}}
   .hint{color:var(--sub);font-size:13px;line-height:1.6;margin:8px 2px 14px}
+  .hint.center{text-align:center;font-size:15px;color:var(--text);font-weight:700;margin:16px 0 16px}
+  .teamcard{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;padding:28px 0 24px;border-radius:18px;border:1px solid var(--line);margin-bottom:12px;cursor:pointer;color:#fff}
+  .teamcard.samsung{background:linear-gradient(135deg,#063a7d,#0a63ce)}
+  .teamcard.lotte{background:linear-gradient(135deg,#041e42,#8f1023)}
+  .tc-badge{font-size:38px;line-height:1.1}
+  .tc-badge.ic{width:38px;height:38px}
+  .tc-name{font-size:21px;font-weight:800}
+  .tc-sub{font-size:12px;opacity:.85}
   .slot{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:8px}
   .slot .ord{width:30px;height:30px;flex:none;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
   .slot select{flex:1;background:var(--card2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 10px;font-size:15px;min-width:0}
@@ -67,24 +79,39 @@
 </style>
 </head>
 <body>
-<header>
-  <div class="lion">🦁</div>
-  <h1>삼성 라이온즈 응원가</h1>
-  <p>선수 응원가 27곡 · 팀 응원가 13곡 · 라인업 모드</p>
+<header id="hdr">
+  <div id="hdrBadge" class="ic" data-ic="baseball"></div>
+  <h1 id="hdrTitle">KBO 응원가 플레이어</h1>
+  <p id="hdrSub">삼성 라이온즈 · 롯데 자이언츠</p>
 </header>
 
-<div class="tabs">
+<div class="tabs hidden" id="tabBar">
+  <button class="tab home-btn" id="btnHome"><span class="ic" data-ic="home"></span></button>
   <button class="tab on" id="tabList"><span class="ic" id="icTabList"></span>응원가 목록</button>
   <button class="tab" id="tabLineup"><span class="ic" id="icTabLineup"></span>라인업 모드</button>
 </div>
 
 <main>
-  <section id="viewList"></section>
+  <section id="viewHome">
+    <p class="hint center">어느 팀 응원가를 들을래?</p>
+    <button class="teamcard samsung" data-team="samsung">
+      <span class="tc-badge">🦁</span>
+      <span class="tc-name">삼성 라이온즈</span>
+      <span class="tc-sub">응원가 41곡 · 라인업 모드</span>
+    </button>
+    <button class="teamcard lotte" data-team="lotte">
+      <span class="tc-badge ic" data-ic="baseball"></span>
+      <span class="tc-name">롯데 자이언츠</span>
+      <span class="tc-sub">선수 응원가 22곡 · 라인업 모드</span>
+    </button>
+  </section>
+
+  <section id="viewList" class="hidden"></section>
 
   <section id="viewLineup" class="hidden">
-    <p class="hint">1번부터 9번까지 타순에 선수를 넣어봐. 재생하면 라인업송부터 시작해서 짠 순서대로 쭉 나와.</p>
+    <p class="hint">1번부터 9번까지 타순에 선수를 넣어봐. 재생하면 짠 순서대로 쭉 나와.</p>
     <div id="slots"></div>
-    <label class="check"><input type="checkbox" id="withIntro" checked> 라인업송 먼저 재생하기</label>
+    <label class="check" id="introCheck"><input type="checkbox" id="withIntro" checked> 라인업송 먼저 재생하기</label>
     <div class="btnrow">
       <button class="btn sub" id="btnRandom"><span class="ic" data-ic="shuffle"></span>랜덤</button>
       <button class="btn sub" id="btnClear"><span class="ic" data-ic="reset"></span>초기화</button>
@@ -95,8 +122,8 @@
 
 <div id="player">
   <div id="np">
-    <div id="npTitle">곡을 골라봐</div>
-    <div id="npSub">삼성 라이온즈 응원가 플레이어</div>
+    <div id="npTitle">팀을 고르고 곡을 눌러봐</div>
+    <div id="npSub">KBO 응원가 플레이어</div>
     <div class="prog">
       <span id="cur">0:00</span>
       <div id="bar"><div id="fill"></div></div>
@@ -125,48 +152,85 @@ const IC = {
   prev: S('<polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/>'),
   next: S('<polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/>'),
   shuffle: S('<polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/>'),
-  reset: S('<polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>')
+  reset: S('<polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>'),
+  home: S('<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>')
 };
 document.getElementById("icTabList").innerHTML = IC.music;
 document.getElementById("icTabLineup").innerHTML = IC.baseball;
 document.querySelectorAll("[data-ic]").forEach(el=>{ el.innerHTML = IC[el.dataset.ic]; });
 
-const PLAYERS = [
-  ["No.0 디아즈","02 No.0 디아즈.mp3"],["No.2 김재성","03 No.2 김재성.mp3"],
-  ["No.3 이해승","04 No.3 이해승.mp3"],["No.5 구자욱","05 No.5 구자욱.mp3"],
-  ["No.6 심재훈","06 No.6 심재훈.mp3"],["No.7 이재현","07 No.7 이재현.mp3"],
-  ["No.8 김재혁","08 No.8 김재혁.mp3"],["No.13 이성규","09 No.13 이성규.mp3"],
-  ["No.14 김재상","10 No.14 김재상.mp3"],["No.16 류지혁","11 No.16 류지혁.mp3"],
-  ["No.23 이병헌","12 No.23 이병헌.mp3"],["No.24 김도환","13 No.24 김도환.mp3"],
-  ["No.25 김태훈","14 No.25 김태훈.mp3"],["No.30 김영웅","15 No.30 김영웅.mp3"],
-  ["No.31 윤정빈","16 No.31 윤정빈.mp3"],["No.32 김헌곤","17 No.32 김헌곤.mp3"],
-  ["No.34 최형우","18 No.34 최형우.mp3"],["No.39 김성윤","19 No.39 김성윤.mp3"],
-  ["No.40 함수호","20 No.40 함수호.mp3"],["No.43 류승민","21 No.43 류승민.mp3"],
-  ["No.47 강민호","22 No.47 강민호.mp3"],["No.50 이창용","23 No.50 이창용.mp3"],
-  ["No.52 박세혁","24 No.52 박세혁.mp3"],["No.53 양우현","25 No.53 양우현.mp3"],
-  ["No.58 김지찬","26 No.58 김지찬.mp3"],["No.61 전병우","27 No.61 전병우.mp3"],
-  ["No.66 박승규","28 No.66 박승규.mp3"]
-];
-const TEAM = [
-  ["지중해","29 지중해.mp3"],["승리하라 최강삼성","30 승리하라 최강삼성.mp3"],
-  ["승리의 그 이름","31 승리의 그 이름.mp3"],["승리를 위해","32 승리를 위해.mp3"],
-  ["투게더","33 투게더.mp3"],["혼연일체","34 혼연일체.mp3"],
-  ["우리들의 함성","35 우리들의 함성.mp3"],["언제나","36 언제나.mp3"],
-  ["나의 라이온즈","37 나의 라이온즈.mp3"],["이 파도의 저끝에서","38 이 파도의 저끝에서.mp3"],
-  ["영원하라 라이온즈여","39 영원하라 라이온즈여.mp3"],["최강삼성 하나되어","40 최강삼성 하나되어.mp3"],
-  ["승리의 라이온즈","41 승리의 라이온즈.mp3"]
-];
-const INTRO = ["라인업송","01 라인업송.mp3"];
-const mk = ([t,f],cat)=>({title:t,file:f,cat});
-const ALL = [mk(INTRO,"intro"), ...PLAYERS.map(p=>mk(p,"player")), ...TEAM.map(t=>mk(t,"team"))];
+const TEAMS = {
+  samsung: {
+    name: "삼성 라이온즈",
+    sub: "선수 응원가 27곡 · 팀 응원가 13곡 · 라인업 모드",
+    dir: "audio",
+    intro: { title: "라인업송", file: "01 라인업송.mp3" },
+    players: [
+      ["No.0 디아즈","02 No.0 디아즈.mp3"],["No.2 김재성","03 No.2 김재성.mp3"],
+      ["No.3 이해승","04 No.3 이해승.mp3"],["No.5 구자욱","05 No.5 구자욱.mp3"],
+      ["No.6 심재훈","06 No.6 심재훈.mp3"],["No.7 이재현","07 No.7 이재현.mp3"],
+      ["No.8 김재혁","08 No.8 김재혁.mp3"],["No.13 이성규","09 No.13 이성규.mp3"],
+      ["No.14 김재상","10 No.14 김재상.mp3"],["No.16 류지혁","11 No.16 류지혁.mp3"],
+      ["No.23 이병헌","12 No.23 이병헌.mp3"],["No.24 김도환","13 No.24 김도환.mp3"],
+      ["No.25 김태훈","14 No.25 김태훈.mp3"],["No.30 김영웅","15 No.30 김영웅.mp3"],
+      ["No.31 윤정빈","16 No.31 윤정빈.mp3"],["No.32 김헌곤","17 No.32 김헌곤.mp3"],
+      ["No.34 최형우","18 No.34 최형우.mp3"],["No.39 김성윤","19 No.39 김성윤.mp3"],
+      ["No.40 함수호","20 No.40 함수호.mp3"],["No.43 류승민","21 No.43 류승민.mp3"],
+      ["No.47 강민호","22 No.47 강민호.mp3"],["No.50 이창용","23 No.50 이창용.mp3"],
+      ["No.52 박세혁","24 No.52 박세혁.mp3"],["No.53 양우현","25 No.53 양우현.mp3"],
+      ["No.58 김지찬","26 No.58 김지찬.mp3"],["No.61 전병우","27 No.61 전병우.mp3"],
+      ["No.66 박승규","28 No.66 박승규.mp3"]
+    ],
+    teamSongs: [
+      ["지중해","29 지중해.mp3"],["승리하라 최강삼성","30 승리하라 최강삼성.mp3"],
+      ["승리의 그 이름","31 승리의 그 이름.mp3"],["승리를 위해","32 승리를 위해.mp3"],
+      ["투게더","33 투게더.mp3"],["혼연일체","34 혼연일체.mp3"],
+      ["우리들의 함성","35 우리들의 함성.mp3"],["언제나","36 언제나.mp3"],
+      ["나의 라이온즈","37 나의 라이온즈.mp3"],["이 파도의 저끝에서","38 이 파도의 저끝에서.mp3"],
+      ["영원하라 라이온즈여","39 영원하라 라이온즈여.mp3"],["최강삼성 하나되어","40 최강삼성 하나되어.mp3"],
+      ["승리의 라이온즈","41 승리의 라이온즈.mp3"]
+    ]
+  },
+  lotte: {
+    name: "롯데 자이언츠",
+    sub: "선수 응원가 22곡 · 라인업 모드",
+    dir: "audio/lotte",
+    intro: null,
+    players: [
+      ["황성빈","01 황성빈.mp3"],["고승민","02 고승민.mp3"],
+      ["신윤후","03 신윤후.mp3"],["조세진","04 조세진.mp3"],
+      ["손성빈","05 손성빈.mp3"],["장두성","06 장두성.mp3"],
+      ["전준우","07 전준우.mp3"],["정훈","08 정훈.mp3"],
+      ["전민재","09 전민재.mp3"],["최항","10 최항.mp3"],
+      ["김민성","11 김민성.mp3"],["유강남","12 유강남.mp3"],
+      ["빅터 레이예스","13 빅터 레이예스.mp3"],["이호준","14 이호준.mp3"],
+      ["손호영","15 손호영.mp3"],["정보근","16 정보근.mp3"],
+      ["이정훈","17 이정훈.mp3"],["나승엽","18 나승엽.mp3"],
+      ["노진혁","19 노진혁.mp3"],["박승욱","20 박승욱.mp3"],
+      ["한태양","21 한태양.mp3"],["윤동희","22 윤동희.mp3"]
+    ],
+    teamSongs: []
+  }
+};
+
+function buildSongs(t){
+  const arr = [];
+  if(t.intro) arr.push({ title: t.intro.title, path: t.dir + "/" + t.intro.file, cat: "intro" });
+  t.players.forEach(p => arr.push({ title: p[0], path: t.dir + "/" + p[1], cat: "player" }));
+  t.teamSongs.forEach(p => arr.push({ title: p[0], path: t.dir + "/" + p[1], cat: "team" }));
+  return arr;
+}
 
 const audio = document.getElementById("audio");
-let queue = [], qi = -1, lineupCtx = null;
+let cur = null, songs = [], queue = [], qi = -1, lineupCtx = null;
 
 const viewList = document.getElementById("viewList");
+const viewLineup = document.getElementById("viewLineup");
+const slotsEl = document.getElementById("slots");
+
 function rowHTML(tr){
-  const idx = ALL.indexOf(tr);
-  return `<div class="row" data-file="${tr.file}">
+  const idx = songs.indexOf(tr);
+  return `<div class="row" data-path="${tr.path}">
     <div class="no">${idx+1}</div><div class="t">${tr.title}</div>
     <div class="eq"><i></i><i></i><i></i></div></div>`;
 }
@@ -175,20 +239,62 @@ function group(icon, title, sub, items, cat){
     <button class="playall" data-cat="${cat}"><span class="ic">${IC.play}</span>전체 재생</button></div>
     <div>${items.map(rowHTML).join("")}</div>`;
 }
-viewList.innerHTML =
-  group(IC.mic, "라인업송", "경기 시작!", [ALL[0]], "intro") +
-  group(IC.users, "선수 응원가", "27명", ALL.filter(t=>t.cat==="player"), "player") +
-  group(IC.flag, "팀 응원가", "13곡", ALL.filter(t=>t.cat==="team"), "team");
-
-const slotsEl = document.getElementById("slots");
-let slotHTML = "";
-for(let i=0;i<9;i++){
-  slotHTML += `<div class="slot" id="slot${i}"><div class="ord">${i+1}</div>
-    <select id="sel${i}"><option value="">— ${i+1}번 타자 선택 —</option>
-    ${PLAYERS.map((p,j)=>`<option value="${j}">${p[0]}</option>`).join("")}
-    </select></div>`;
+function buildList(){
+  const intro = songs.filter(s=>s.cat==="intro");
+  const players = songs.filter(s=>s.cat==="player");
+  const team = songs.filter(s=>s.cat==="team");
+  let h = "";
+  if(intro.length) h += group(IC.mic, "라인업송", "경기 시작!", intro, "intro");
+  h += group(IC.users, "선수 응원가", players.length + "명", players, "player");
+  if(team.length) h += group(IC.flag, "팀 응원가", team.length + "곡", team, "team");
+  viewList.innerHTML = h;
 }
-slotsEl.innerHTML = slotHTML;
+function buildSlots(){
+  let h = "";
+  for(let i=0;i<9;i++){
+    h += `<div class="slot" id="slot${i}"><div class="ord">${i+1}</div>
+      <select id="sel${i}"><option value="">— ${i+1}번 타자 선택 —</option>
+      ${cur.players.map((p,j)=>`<option value="${j}">${p[0]}</option>`).join("")}
+      </select></div>`;
+  }
+  slotsEl.innerHTML = h;
+  document.getElementById("introCheck").classList.toggle("hidden", !cur.intro);
+}
+
+function selectTeam(key){
+  cur = TEAMS[key];
+  songs = buildSongs(cur);
+  const hdr = document.getElementById("hdr");
+  hdr.className = key;
+  const badge = document.getElementById("hdrBadge");
+  if(key === "samsung"){ badge.classList.remove("ic"); badge.innerHTML = "🦁"; }
+  else { badge.classList.add("ic"); badge.innerHTML = IC.baseball; }
+  document.getElementById("hdrTitle").textContent = cur.name + " 응원가";
+  document.getElementById("hdrSub").textContent = cur.sub;
+  buildList();
+  buildSlots();
+  document.getElementById("viewHome").classList.add("hidden");
+  document.getElementById("tabBar").classList.remove("hidden");
+  switchTab(true);
+}
+function goHome(){
+  document.getElementById("viewHome").classList.remove("hidden");
+  document.getElementById("tabBar").classList.add("hidden");
+  viewList.classList.add("hidden");
+  viewLineup.classList.add("hidden");
+  const hdr = document.getElementById("hdr");
+  hdr.className = "";
+  const badge = document.getElementById("hdrBadge");
+  badge.classList.add("ic");
+  badge.innerHTML = IC.baseball;
+  document.getElementById("hdrTitle").textContent = "KBO 응원가 플레이어";
+  document.getElementById("hdrSub").textContent = "삼성 라이온즈 · 롯데 자이언츠";
+}
+document.getElementById("viewHome").addEventListener("click", e=>{
+  const card = e.target.closest(".teamcard");
+  if(card) selectTeam(card.dataset.team);
+});
+document.getElementById("btnHome").addEventListener("click", goHome);
 
 function setQueue(list, start, ctx){
   queue = list; qi = start; lineupCtx = ctx || null;
@@ -198,18 +304,19 @@ function load(i, autoplay){
   if(i<0 || i>=queue.length) return;
   qi = i;
   const tr = queue[qi];
-  audio.src = "audio/" + encodeURIComponent(tr.file);
+  audio.src = tr.path.split("/").map(encodeURIComponent).join("/");
   document.getElementById("npTitle").textContent = tr.title;
+  const teamName = cur ? cur.name : "KBO";
   document.getElementById("npSub").textContent =
-    queue.length>1 ? `${qi+1} / ${queue.length} · 삼성 라이온즈 응원가` : "삼성 라이온즈 응원가";
-  document.querySelectorAll(".row").forEach(r=>r.classList.toggle("playing", r.dataset.file===tr.file));
+    queue.length>1 ? `${qi+1} / ${queue.length} · ${teamName} 응원가` : `${teamName} 응원가`;
+  document.querySelectorAll(".row").forEach(r=>r.classList.toggle("playing", r.dataset.path===tr.path));
   document.querySelectorAll(".slot").forEach(s=>s.classList.remove("now"));
   if(lineupCtx && lineupCtx[qi]>=0){
     const s = document.getElementById("slot"+lineupCtx[qi]);
     if(s) s.classList.add("now");
   }
   if("mediaSession" in navigator){
-    navigator.mediaSession.metadata = new MediaMetadata({title:tr.title, artist:"삼성 라이온즈 응원가"});
+    navigator.mediaSession.metadata = new MediaMetadata({title:tr.title, artist:teamName + " 응원가"});
   }
   if(autoplay) audio.play().catch(()=>{});
 }
@@ -230,7 +337,7 @@ document.getElementById("bar").addEventListener("click", e=>{
   if(audio.duration) audio.currentTime = audio.duration*(e.clientX-r.left)/r.width;
 });
 playBtn.addEventListener("click", ()=>{
-  if(!audio.src){ setQueue(ALL,0); return; }
+  if(!audio.src){ if(songs.length) setQueue(songs,0); return; }
   audio.paused? audio.play().catch(()=>{}) : audio.pause();
 });
 document.getElementById("prevBtn").addEventListener("click", ()=>{ if(qi>0) load(qi-1,true); });
@@ -240,29 +347,34 @@ viewList.addEventListener("click", e=>{
   const pa = e.target.closest(".playall");
   if(pa){
     const cat = pa.dataset.cat;
-    const items = cat==="intro" ? ALL : ALL.filter(t=>t.cat===cat);
+    const items = cat==="intro" ? songs : songs.filter(s=>s.cat===cat);
     setQueue(items, 0); return;
   }
   const row = e.target.closest(".row");
   if(row){
-    const tr = ALL.find(t=>t.file===row.dataset.file);
-    setQueue(ALL, ALL.indexOf(tr));
+    const tr = songs.find(s=>s.path===row.dataset.path);
+    if(tr) setQueue(songs, songs.indexOf(tr));
   }
 });
 
 document.getElementById("btnPlayLineup").addEventListener("click", ()=>{
   const picks = [], ctx = [];
-  if(document.getElementById("withIntro").checked){ picks.push(ALL[0]); ctx.push(-1); }
+  if(cur.intro && document.getElementById("withIntro").checked){ picks.push(songs[0]); ctx.push(-1); }
   for(let i=0;i<9;i++){
     const v = document.getElementById("sel"+i).value;
-    if(v!==""){ picks.push(mk(PLAYERS[+v],"player")); ctx.push(i); }
+    if(v!==""){
+      const title = cur.players[+v][0];
+      const s = songs.find(x=>x.cat==="player" && x.title===title);
+      if(s){ picks.push(s); ctx.push(i); }
+    }
   }
   if(ctx.filter(c=>c>=0).length===0){ alert("타자를 한 명 이상 골라줘!"); return; }
   switchTab(false);
   setQueue(picks, 0, ctx);
 });
 document.getElementById("btnRandom").addEventListener("click", ()=>{
-  const idx = PLAYERS.map((_,i)=>i);
+  if(!cur) return;
+  const idx = cur.players.map((_,i)=>i);
   for(let i=idx.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [idx[i],idx[j]]=[idx[j],idx[i]]; }
   for(let s=0;s<9;s++) document.getElementById("sel"+s).value = idx[s];
 });
@@ -273,8 +385,8 @@ document.getElementById("btnClear").addEventListener("click", ()=>{
 const tabList = document.getElementById("tabList"), tabLineup = document.getElementById("tabLineup");
 function switchTab(list){
   tabList.classList.toggle("on", list); tabLineup.classList.toggle("on", !list);
-  document.getElementById("viewList").classList.toggle("hidden", !list);
-  document.getElementById("viewLineup").classList.toggle("hidden", list);
+  viewList.classList.toggle("hidden", !list);
+  viewLineup.classList.toggle("hidden", list);
 }
 tabList.addEventListener("click", ()=>switchTab(true));
 tabLineup.addEventListener("click", ()=>switchTab(false));

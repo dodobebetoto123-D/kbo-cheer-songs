@@ -396,8 +396,10 @@ document.getElementById("btnLyrEdit").addEventListener("click", ()=>{
   editorEl.scrollIntoView({behavior:"smooth"});
 });
 document.getElementById("btnSyncCancel").addEventListener("click", closeEditor);
+const NAMU_PLAYERS = "https://namu.wiki/w/%EC%82%BC%EC%84%B1%20%EB%9D%BC%EC%9D%B4%EC%98%A8%EC%A6%88/%EC%9D%91%EC%9B%90%EA%B0%80/%EC%84%A0%EC%88%98";
 document.getElementById("btnLyrSearch").addEventListener("click", ()=>{
   const tr = curTrack();
+  if(tr && tr.cat==="player"){ window.open(NAMU_PLAYERS, "_blank"); return; }
   const q = tr? "삼성 라이온즈 " + tr.title + " 가사" : "삼성 라이온즈 응원가 가사";
   window.open("https://www.google.com/search?q=" + encodeURIComponent(q), "_blank");
 });

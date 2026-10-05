@@ -11,19 +11,22 @@
     --line:#26355a; --accent:#ffb81c;
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;padding-bottom:150px}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;padding-bottom:160px}
   header{background:linear-gradient(135deg,#063a7d,#0a63ce);padding:26px 18px 20px;text-align:center}
   header .lion{font-size:40px}
   header h1{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-top:4px}
   header p{color:#cfe4ff;font-size:13px;margin-top:5px}
+  .ic{width:20px;height:20px;flex:none;display:inline-block;vertical-align:middle}
+  .ic svg{width:100%;height:100%;display:block}
   .tabs{display:flex;gap:8px;padding:14px 16px 4px;position:sticky;top:0;background:var(--bg);z-index:5}
-  .tab{flex:1;padding:11px 0;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--sub);font-size:15px;font-weight:700;cursor:pointer}
+  .tab{flex:1;padding:11px 0;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--sub);font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
   .tab.on{background:var(--blue2);color:#fff;border-color:var(--blue2)}
   main{padding:10px 16px 0;max-width:720px;margin:0 auto}
   .group-head{display:flex;align-items:center;justify-content:space-between;margin:20px 2px 10px}
-  .group-head h2{font-size:16px;font-weight:800}
-  .group-head h2 span{color:var(--sky);font-size:12px;margin-left:6px;font-weight:600}
-  .playall{background:var(--blue);color:#fff;border:0;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer}
+  .group-head h2{font-size:16px;font-weight:800;display:flex;align-items:center;gap:7px}
+  .group-head h2 .sub{color:var(--sky);font-size:12px;font-weight:600}
+  .playall{background:var(--blue);color:#fff;border:0;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px}
+  .playall .ic{width:13px;height:13px}
   .row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px;cursor:pointer}
   .row:active{background:var(--card2)}
   .row .no{width:34px;height:34px;flex:none;border-radius:50%;background:var(--card2);color:var(--sky);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
@@ -43,10 +46,11 @@
   .slot.now .ord{background:var(--accent);color:#222}
   .check{display:flex;align-items:center;gap:8px;margin:14px 2px;font-size:14px;color:var(--sub)}
   .check input{width:19px;height:19px;accent-color:var(--blue2)}
-  .btnrow{display:flex;gap:8px;margin:6px 0 18px}
-  .btn{flex:1;padding:14px 0;border-radius:14px;border:0;font-size:15px;font-weight:800;cursor:pointer}
+  .btnrow{display:flex;gap:8px;margin:6px 0 14px}
+  .btn{flex:1;padding:14px 0;border-radius:14px;border:0;font-size:15px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
   .btn.main{background:var(--blue2);color:#fff}
   .btn.sub{background:var(--card);color:var(--sub);border:1px solid var(--line)}
+  .btn .ic{width:17px;height:17px}
   #player{position:fixed;left:0;right:0;bottom:0;background:rgba(10,18,34,.97);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));z-index:10}
   #np{max-width:720px;margin:0 auto}
   #npTitle{font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -55,10 +59,11 @@
   #bar{flex:1;height:6px;background:#26355a;border-radius:99px;cursor:pointer;position:relative}
   #fill{height:100%;width:0%;background:var(--sky);border-radius:99px}
   .ctrls{display:flex;align-items:center;justify-content:center;gap:26px;margin-top:8px}
-  .cbtn{background:none;border:0;color:#fff;font-size:24px;cursor:pointer;padding:4px 8px}
-  #playBtn{font-size:30px;background:var(--blue2);width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .cbtn{background:none;border:0;color:#fff;cursor:pointer;padding:6px;display:flex;align-items:center;justify-content:center}
+  .cbtn .ic{width:26px;height:26px}
+  #playBtn{background:var(--blue2);width:56px;height:56px;border-radius:50%}
+  #playBtn .ic{width:26px;height:26px}
   .hidden{display:none}
-  .empty-msg{text-align:center;color:var(--sub);font-size:14px;padding:26px 0}
 </style>
 </head>
 <body>
@@ -69,8 +74,8 @@
 </header>
 
 <div class="tabs">
-  <button class="tab on" id="tabList">🎵 응원가 목록</button>
-  <button class="tab" id="tabLineup">⚾ 라인업 모드</button>
+  <button class="tab on" id="tabList"><span class="ic" id="icTabList"></span>응원가 목록</button>
+  <button class="tab" id="tabLineup"><span class="ic" id="icTabLineup"></span>라인업 모드</button>
 </div>
 
 <main>
@@ -81,10 +86,10 @@
     <div id="slots"></div>
     <label class="check"><input type="checkbox" id="withIntro" checked> 라인업송 먼저 재생하기</label>
     <div class="btnrow">
-      <button class="btn sub" id="btnRandom">🎲 랜덤</button>
-      <button class="btn sub" id="btnClear">↺ 초기화</button>
+      <button class="btn sub" id="btnRandom"><span class="ic" data-ic="shuffle"></span>랜덤</button>
+      <button class="btn sub" id="btnClear"><span class="ic" data-ic="reset"></span>초기화</button>
     </div>
-    <button class="btn main" id="btnPlayLineup" style="width:100%">▶ 이 라인업으로 재생</button>
+    <button class="btn main" id="btnPlayLineup" style="width:100%"><span class="ic" data-ic="play"></span>이 라인업으로 재생</button>
   </section>
 </main>
 
@@ -98,9 +103,9 @@
       <span id="dur">0:00</span>
     </div>
     <div class="ctrls">
-      <button class="cbtn" id="prevBtn">⏮</button>
-      <button class="cbtn" id="playBtn">▶</button>
-      <button class="cbtn" id="nextBtn">⏭</button>
+      <button class="cbtn" id="prevBtn"><span class="ic" data-ic="prev"></span></button>
+      <button class="cbtn" id="playBtn"><span class="ic" data-ic="play"></span></button>
+      <button class="cbtn" id="nextBtn"><span class="ic" data-ic="next"></span></button>
     </div>
   </div>
 </div>
@@ -108,6 +113,24 @@
 <audio id="audio" preload="metadata"></audio>
 
 <script>
+const S = (inner, fill) => `<svg viewBox="0 0 24 24" fill="${fill?'currentColor':'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
+const IC = {
+  music: S('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>'),
+  baseball: S('<circle cx="12" cy="12" r="9"/><path d="M5.6 4.6c3.6 4.2 3.6 10.6 0 14.8"/><path d="M18.4 4.6c-3.6 4.2-3.6 10.6 0 14.8"/>'),
+  mic: S('<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>'),
+  users: S('<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'),
+  flag: S('<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>'),
+  play: S('<polygon points="6 3 20 12 6 21 6 3"/>', true),
+  pause: S('<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>', true),
+  prev: S('<polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/>'),
+  next: S('<polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/>'),
+  shuffle: S('<polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/>'),
+  reset: S('<polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>')
+};
+document.getElementById("icTabList").innerHTML = IC.music;
+document.getElementById("icTabLineup").innerHTML = IC.baseball;
+document.querySelectorAll("[data-ic]").forEach(el=>{ el.innerHTML = IC[el.dataset.ic]; });
+
 const PLAYERS = [
   ["No.0 디아즈","02 No.0 디아즈.mp3"],["No.2 김재성","03 No.2 김재성.mp3"],
   ["No.3 이해승","04 No.3 이해승.mp3"],["No.5 구자욱","05 No.5 구자욱.mp3"],
@@ -138,24 +161,24 @@ const mk = ([t,f],cat)=>({title:t,file:f,cat});
 const ALL = [mk(INTRO,"intro"), ...PLAYERS.map(p=>mk(p,"player")), ...TEAM.map(t=>mk(t,"team"))];
 
 const audio = document.getElementById("audio");
-let queue = [], qi = -1, lineupCtx = null; // lineupCtx: array of slot indexes or null
+let queue = [], qi = -1, lineupCtx = null;
 
 const viewList = document.getElementById("viewList");
-function rowHTML(tr, idx){
+function rowHTML(tr){
+  const idx = ALL.indexOf(tr);
   return `<div class="row" data-file="${tr.file}">
     <div class="no">${idx+1}</div><div class="t">${tr.title}</div>
     <div class="eq"><i></i><i></i><i></i></div></div>`;
 }
-function group(title, sub, items, cat){
-  const start = ALL.indexOf(items[0]);
-  return `<div class="group-head"><h2>${title}<span>${sub}</span></h2>
-    <button class="playall" data-cat="${cat}">▶ 전체 재생</button></div>
-    <div>${items.map((t,i)=>rowHTML(t, ALL.indexOf(t))).join("")}</div>`;
+function group(icon, title, sub, items, cat){
+  return `<div class="group-head"><h2><span class="ic">${icon}</span>${title}<span class="sub">${sub}</span></h2>
+    <button class="playall" data-cat="${cat}"><span class="ic">${IC.play}</span>전체 재생</button></div>
+    <div>${items.map(rowHTML).join("")}</div>`;
 }
 viewList.innerHTML =
-  group("🎙️ 라인업송","경기 시작!", [ALL[0]], "intro") +
-  group("🧢 선수 응원가","27명", ALL.filter(t=>t.cat==="player"), "player") +
-  group("📣 팀 응원가","13곡", ALL.filter(t=>t.cat==="team"), "team");
+  group(IC.mic, "라인업송", "경기 시작!", [ALL[0]], "intro") +
+  group(IC.users, "선수 응원가", "27명", ALL.filter(t=>t.cat==="player"), "player") +
+  group(IC.flag, "팀 응원가", "13곡", ALL.filter(t=>t.cat==="team"), "team");
 
 const slotsEl = document.getElementById("slots");
 let slotHTML = "";
@@ -181,7 +204,7 @@ function load(i, autoplay){
     queue.length>1 ? `${qi+1} / ${queue.length} · 삼성 라이온즈 응원가` : "삼성 라이온즈 응원가";
   document.querySelectorAll(".row").forEach(r=>r.classList.toggle("playing", r.dataset.file===tr.file));
   document.querySelectorAll(".slot").forEach(s=>s.classList.remove("now"));
-  if(lineupCtx && lineupCtx[qi]!==undefined && lineupCtx[qi]>=0){
+  if(lineupCtx && lineupCtx[qi]>=0){
     const s = document.getElementById("slot"+lineupCtx[qi]);
     if(s) s.classList.add("now");
   }
@@ -190,8 +213,10 @@ function load(i, autoplay){
   }
   if(autoplay) audio.play().catch(()=>{});
 }
-audio.addEventListener("play", ()=>{ document.getElementById("playBtn").textContent="⏸"; });
-audio.addEventListener("pause", ()=>{ document.getElementById("playBtn").textContent="▶"; });
+const playBtn = document.getElementById("playBtn");
+function setPlayIcon(){ playBtn.innerHTML = `<span class="ic">${audio.paused? IC.play : IC.pause}</span>`; }
+audio.addEventListener("play", setPlayIcon);
+audio.addEventListener("pause", setPlayIcon);
 audio.addEventListener("ended", ()=>{ if(qi<queue.length-1) load(qi+1, true); });
 audio.addEventListener("timeupdate", ()=>{
   const c = audio.currentTime||0, d = audio.duration||0;
@@ -204,7 +229,7 @@ document.getElementById("bar").addEventListener("click", e=>{
   const r = e.currentTarget.getBoundingClientRect();
   if(audio.duration) audio.currentTime = audio.duration*(e.clientX-r.left)/r.width;
 });
-document.getElementById("playBtn").addEventListener("click", ()=>{
+playBtn.addEventListener("click", ()=>{
   if(!audio.src){ setQueue(ALL,0); return; }
   audio.paused? audio.play().catch(()=>{}) : audio.pause();
 });
@@ -226,17 +251,13 @@ viewList.addEventListener("click", e=>{
 });
 
 document.getElementById("btnPlayLineup").addEventListener("click", ()=>{
-  const picks = [];
-  const ctx = [];
+  const picks = [], ctx = [];
   if(document.getElementById("withIntro").checked){ picks.push(ALL[0]); ctx.push(-1); }
   for(let i=0;i<9;i++){
     const v = document.getElementById("sel"+i).value;
     if(v!==""){ picks.push(mk(PLAYERS[+v],"player")); ctx.push(i); }
   }
-  if(picks.length===0 || (picks.length===1 && ctx[0]===-1 && !document.getElementById("withIntro").checked)){
-    alert("타자를 한 명 이상 골라줘!"); return;
-  }
-  if(picks.length===1 && ctx[0]===-1){ alert("타자를 한 명 이상 골라줘!"); return; }
+  if(ctx.filter(c=>c>=0).length===0){ alert("타자를 한 명 이상 골라줘!"); return; }
   switchTab(false);
   setQueue(picks, 0, ctx);
 });

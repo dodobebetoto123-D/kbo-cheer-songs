@@ -510,7 +510,11 @@ function load(i, autoplay){
   if(i<0 || i>=queue.length) return;
   qi = i;
   const tr = queue[qi];
-  audio.src = tr.path.split("/").map(encodeURIComponent).join("/");
+  // GitHub Pages serves this app below /kbo-cheer-songs/, so resolve
+  // relative audio paths against the current document instead of the
+  // browser's origin.
+  audio.src = new URL(tr.path.split("/").map(encodeURIComponent).join("/"), document.baseURI).href;
+  audio.load();
   document.getElementById("npTitle").textContent = tr.title;
   const teamName = playLabel || (cur ? cur.name : "KBO");
   document.getElementById("npSub").textContent =
@@ -524,12 +528,17 @@ function load(i, autoplay){
   if("mediaSession" in navigator){
     navigator.mediaSession.metadata = new MediaMetadata({title:tr.title, artist:teamName + " 응원가"});
   }
-  if(autoplay) audio.play().catch(()=>{});
+  if(autoplay) audio.play().catch(showAudioError);
+}
+function showAudioError(error){
+  console.error("오디오를 재생할 수 없습니다.", error);
+  document.getElementById("npSub").textContent = "오디오 파일을 불러오지 못했어요. 페이지를 새로고침해 주세요.";
 }
 const playBtn = document.getElementById("playBtn");
 function setPlayIcon(){ playBtn.innerHTML = `<span class="ic">${audio.paused? IC.play : IC.pause}</span>`; }
 audio.addEventListener("play", setPlayIcon);
 audio.addEventListener("pause", setPlayIcon);
+audio.addEventListener("error", ()=>showAudioError(audio.error));
 audio.addEventListener("ended", ()=>{ if(qi<queue.length-1) load(qi+1, true); });
 audio.addEventListener("timeupdate", ()=>{
   const c = audio.currentTime||0, d = audio.duration||0;
@@ -544,7 +553,7 @@ document.getElementById("bar").addEventListener("click", e=>{
 });
 playBtn.addEventListener("click", ()=>{
   if(!audio.src){ if(songs.length) setQueue(songs,0); return; }
-  audio.paused? audio.play().catch(()=>{}) : audio.pause();
+  audio.paused? audio.play().catch(showAudioError) : audio.pause();
 });
 document.getElementById("prevBtn").addEventListener("click", ()=>{ if(qi>0) load(qi-1,true); });
 document.getElementById("nextBtn").addEventListener("click", ()=>{ if(qi<queue.length-1) load(qi+1,true); });

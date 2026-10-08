@@ -13,19 +13,26 @@
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Malgun Gothic","Apple SD Gothic Neo",sans-serif;padding-bottom:160px}
   header{background:linear-gradient(135deg,#1b2c52,#31456e);padding:26px 18px 20px;text-align:center}
-  
-  /* 구단별 헤더 테마 컬러 */
   header.samsung{background:linear-gradient(135deg,#063a7d,#0a63ce)}
   header.lotte{background:linear-gradient(135deg,#041e42,#8f1023)}
-  header.kia{background:linear-gradient(135deg,#030202,#ea0029)}
-  header.doosan{background:linear-gradient(135deg,#131230,#ed1c24)}
-  header.kt{background:linear-gradient(135deg,#000000,#ec1c24)}
-  header.lg{background:linear-gradient(135deg,#000000,#c3002f)}
-  header.nc{background:linear-gradient(135deg,#071d49,#af9171)}
-  header.ssg{background:linear-gradient(135deg,#1f0507,#ce0e2d)}
-  header.hanwha{background:linear-gradient(135deg,#111111,#f37321)}
-  header.kiwoom{background:linear-gradient(135deg,#2e000d,#820024)}
-
+  header.kia{background:linear-gradient(135deg,#c40026,#7e0016)}
+  .teamcard.kia{background:linear-gradient(135deg,#c40026,#7e0016)}
+  header.doosan{background:linear-gradient(135deg,#131230,#2c2c7a)}
+  .teamcard.doosan{background:linear-gradient(135deg,#131230,#2c2c7a)}
+  header.lg{background:linear-gradient(135deg,#a50034,#d6336c)}
+  .teamcard.lg{background:linear-gradient(135deg,#a50034,#d6336c)}
+  header.nc{background:linear-gradient(135deg,#0a2a5e,#1e5aa8)}
+  .teamcard.nc{background:linear-gradient(135deg,#0a2a5e,#1e5aa8)}
+  header.ssg{background:linear-gradient(135deg,#ce0e2d,#7a0a1c)}
+  .teamcard.ssg{background:linear-gradient(135deg,#ce0e2d,#7a0a1c)}
+  header.hanwha{background:linear-gradient(135deg,#e85d04,#9c3d00)}
+  .teamcard.hanwha{background:linear-gradient(135deg,#e85d04,#9c3d00)}
+  header.kt{background:linear-gradient(135deg,#1a1a1a,#b01030)}
+  .teamcard.kt{background:linear-gradient(135deg,#1a1a1a,#b01030)}
+  header.kiwoom{background:linear-gradient(135deg,#5c0e2e,#a11a4d)}
+  .teamcard.kiwoom{background:linear-gradient(135deg,#5c0e2e,#a11a4d)}
+  header.dream{background:linear-gradient(135deg,#2b1a5e,#7b2ff7)}
+  .teamcard.dream{background:linear-gradient(135deg,#2b1a5e,#7b2ff7)}
   header h1{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-top:4px}
   header p{color:#cfe4ff;font-size:13px;margin-top:5px}
   #hdrBadge{font-size:40px;line-height:1.1}
@@ -55,20 +62,9 @@
   @keyframes eq{0%,100%{height:5px}50%{height:15px}}
   .hint{color:var(--sub);font-size:13px;line-height:1.6;margin:8px 2px 14px}
   .hint.center{text-align:center;font-size:15px;color:var(--text);font-weight:700;margin:16px 0 16px}
-  .teamcard{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;padding:24px 0 20px;border-radius:18px;border:1px solid var(--line);margin-bottom:12px;cursor:pointer;color:#fff}
-  
-  /* 구단별 홈 카드의 테마 컬러 */
+  .teamcard{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;padding:28px 0 24px;border-radius:18px;border:1px solid var(--line);margin-bottom:12px;cursor:pointer;color:#fff}
   .teamcard.samsung{background:linear-gradient(135deg,#063a7d,#0a63ce)}
   .teamcard.lotte{background:linear-gradient(135deg,#041e42,#8f1023)}
-  .teamcard.kia{background:linear-gradient(135deg,#030202,#ea0029)}
-  .teamcard.doosan{background:linear-gradient(135deg,#131230,#ed1c24)}
-  .teamcard.kt{background:linear-gradient(135deg,#000000,#ec1c24)}
-  .teamcard.lg{background:linear-gradient(135deg,#000000,#c3002f)}
-  .teamcard.nc{background:linear-gradient(135deg,#071d49,#af9171)}
-  .teamcard.ssg{background:linear-gradient(135deg,#1f0507,#ce0e2d)}
-  .teamcard.hanwha{background:linear-gradient(135deg,#111111,#f37321)}
-  .teamcard.kiwoom{background:linear-gradient(135deg,#2e000d,#820024)}
-
   .tc-badge{font-size:38px;line-height:1.1}
   .tc-badge.ic{width:38px;height:38px}
   .tc-name{font-size:21px;font-weight:800}
@@ -104,13 +100,14 @@
 <header id="hdr">
   <div id="hdrBadge" class="ic" data-ic="baseball"></div>
   <h1 id="hdrTitle">KBO 응원가 플레이어</h1>
-  <p id="hdrSub">전 구단 응원가 · 라인업 모드</p>
+  <p id="hdrSub">삼성 라이온즈 · 롯데 자이언츠 · KIA 타이거즈 · 두산 베어스 · LG 트윈스 · NC 다이노스 · SSG 랜더스 · 한화 이글스 · KT 위즈 · 키움 히어로즈</p>
 </header>
 
 <div class="tabs hidden" id="tabBar">
   <button class="tab home-btn" id="btnHome"><span class="ic" data-ic="home"></span></button>
   <button class="tab on" id="tabList"><span class="ic" id="icTabList"></span>응원가 목록</button>
   <button class="tab" id="tabLineup"><span class="ic" id="icTabLineup"></span>라인업 모드</button>
+  <button class="tab hidden" id="tabDream"><span class="ic" id="icTabDream"></span>드림/나눔 모드</button>
 </div>
 
 <main>
@@ -119,7 +116,7 @@
     <button class="teamcard samsung" data-team="samsung">
       <span class="tc-badge">🦁</span>
       <span class="tc-name">삼성 라이온즈</span>
-      <span class="tc-sub">응원가 40곡 · 라인업 모드</span>
+      <span class="tc-sub">응원가 41곡 · 라인업 모드</span>
     </button>
     <button class="teamcard lotte" data-team="lotte">
       <span class="tc-badge ic" data-ic="baseball"></span>
@@ -128,43 +125,48 @@
     </button>
     <button class="teamcard kia" data-team="kia">
       <span class="tc-badge">🐯</span>
-      <span class="tc-name">기아 타이거즈</span>
-      <span class="tc-sub">응원가 50곡 · 라인업 모드</span>
+      <span class="tc-name">KIA 타이거즈</span>
+      <span class="tc-sub">응원가 52곡 · 라인업 모드</span>
     </button>
     <button class="teamcard doosan" data-team="doosan">
       <span class="tc-badge">🐻</span>
       <span class="tc-name">두산 베어스</span>
-      <span class="tc-sub">응원가 50곡 · 라인업 모드</span>
-    </button>
-    <button class="teamcard kt" data-team="kt">
-      <span class="tc-badge">🧙‍♂️</span>
-      <span class="tc-name">kt wiz</span>
-      <span class="tc-sub">응원가 53곡 · 라인업 모드</span>
+      <span class="tc-sub">응원가 51곡 · 라인업 모드</span>
     </button>
     <button class="teamcard lg" data-team="lg">
-      <span class="tc-badge">⚾</span>
+      <span class="tc-badge">👥</span>
       <span class="tc-name">LG 트윈스</span>
-      <span class="tc-sub">응원가 43곡 · 라인업 모드</span>
+      <span class="tc-sub">응원가 44곡 · 라인업 모드</span>
     </button>
     <button class="teamcard nc" data-team="nc">
-      <span class="tc-badge">🦖</span>
+      <span class="tc-badge">🦕</span>
       <span class="tc-name">NC 다이노스</span>
-      <span class="tc-sub">응원가 59곡 · 라인업 모드</span>
+      <span class="tc-sub">응원가 58곡 · 라인업 모드</span>
     </button>
     <button class="teamcard ssg" data-team="ssg">
-      <span class="tc-badge">🚀</span>
+      <span class="tc-badge">⚓</span>
       <span class="tc-name">SSG 랜더스</span>
-      <span class="tc-sub">응원가 46곡 · 라인업 모드</span>
+      <span class="tc-sub">응원가 51곡 · 라인업 모드</span>
     </button>
     <button class="teamcard hanwha" data-team="hanwha">
       <span class="tc-badge">🦅</span>
       <span class="tc-name">한화 이글스</span>
-      <span class="tc-sub">응원가 44곡 · 라인업 모드</span>
+      <span class="tc-sub">응원가 46곡 · 라인업 모드</span>
+    </button>
+    <button class="teamcard kt" data-team="kt">
+      <span class="tc-badge">🧙</span>
+      <span class="tc-name">KT 위즈</span>
+      <span class="tc-sub">응원가 58곡 · 라인업 모드</span>
     </button>
     <button class="teamcard kiwoom" data-team="kiwoom">
       <span class="tc-badge">🦸</span>
       <span class="tc-name">키움 히어로즈</span>
-      <span class="tc-sub">응원가 49곡 · 라인업 모드</span>
+      <span class="tc-sub">응원가 52곡 · 라인업 모드</span>
+    </button>
+    <button class="teamcard dream" data-mode="dream">
+      <span class="tc-badge">🌟</span>
+      <span class="tc-name">드림 vs 나눔 올스타</span>
+      <span class="tc-sub">드림 5팀 · 나눔 5팀 올스타 라인업</span>
     </button>
   </section>
 
@@ -179,6 +181,23 @@
       <button class="btn sub" id="btnClear"><span class="ic" data-ic="reset"></span>초기화</button>
     </div>
     <button class="btn main" id="btnPlayLineup" style="width:100%"><span class="ic" data-ic="play"></span>이 라인업으로 재생</button>
+  </section>
+
+  <section id="viewDream" class="hidden">
+    <p class="hint">드림 올스타(두산·KT·롯데·삼성·SSG)와 나눔 올스타(KIA·키움·NC·LG·한화) 타순을 짜봐. 재생하면 1번부터 번갈아 나와.</p>
+    <div class="group-head"><h2>🌠 드림 올스타 <span class="sub">두산·KT·롯데·삼성·SSG</span></h2></div>
+    <div id="dslots"></div>
+    <div class="btnrow">
+      <button class="btn sub" id="btnRandomD"><span class="ic" data-ic="shuffle"></span>드림 랜덤</button>
+      <button class="btn sub" id="btnClearD"><span class="ic" data-ic="reset"></span>드림 초기화</button>
+    </div>
+    <div class="group-head"><h2>💙 나눔 올스타 <span class="sub">KIA·키움·NC·LG·한화</span></h2></div>
+    <div id="nslots"></div>
+    <div class="btnrow">
+      <button class="btn sub" id="btnRandomN"><span class="ic" data-ic="shuffle"></span>나눔 랜덤</button>
+      <button class="btn sub" id="btnClearN"><span class="ic" data-ic="reset"></span>나눔 초기화</button>
+    </div>
+    <button class="btn main" id="btnPlayDream" style="width:100%"><span class="ic" data-ic="play"></span>올스타전으로 재생</button>
   </section>
 </main>
 
@@ -219,14 +238,15 @@ const IC = {
 };
 document.getElementById("icTabList").innerHTML = IC.music;
 document.getElementById("icTabLineup").innerHTML = IC.baseball;
+document.getElementById("icTabDream").innerHTML = IC.users;
 document.querySelectorAll("[data-ic]").forEach(el=>{ el.innerHTML = IC[el.dataset.ic]; });
 
 const TEAMS = {
   samsung: {
     name: "삼성 라이온즈",
+    badge: "🦁",
     sub: "선수 응원가 27곡 · 팀 응원가 13곡 · 라인업 모드",
     dir: "audio",
-    badge: "🦁",
     intro: { title: "라인업송", file: "01 라인업송.mp3" },
     players: [
       ["No.0 디아즈","02 No.0 디아즈.mp3"],["No.2 김재성","03 No.2 김재성.mp3"],
@@ -258,7 +278,6 @@ const TEAMS = {
     name: "롯데 자이언츠",
     sub: "선수 응원가 22곡 · 라인업 모드",
     dir: "audio/lotte",
-    badge: "ic",
     intro: null,
     players: [
       ["황성빈","01 황성빈.mp3"],["고승민","02 고승민.mp3"],
@@ -276,256 +295,76 @@ const TEAMS = {
     teamSongs: []
   },
   kia: {
-    name: "기아 타이거즈",
-    sub: "선수 응원가 31곡 · 팀 응원가 18곡 · 라인업 모드",
-    dir: "audio/kia",
+    name: "KIA 타이거즈",
     badge: "🐯",
-    intro: { title: "라인업송", file: "02_라인업송.mp3" },
-    players: [
-      ["박정우","03_박정우 등장곡+응원가.mp3"],["박재현","06_박재현 등장곡+응원가.mp3"],
-      ["김도영","08_김도영 등장곡+응원가.mp3"],["카스트로","09_카스트로 등장곡+응원가.mp3"],
-      ["나성범","10_나성범 등장곡+응원가.mp3"],["김선빈","11_김선빈 등장곡+응원가.mp3"],
-      ["하주석","13_하주석 등장곡+응원가.mp3"],["김태군","14_김태군 등장곡+응원가.mp3"],
-      ["김호령","15_김호령 등장곡+응원가.mp3"],["박민","17_박민 등장곡+응원가.mp3"],
-      ["이창진","18_이창진 등장곡+응원가.mp3"],["정현창","19_정현창 등장곡+응원가.mp3"],
-      ["김규성","20_김규성 등장곡+응원가.mp3"],["윤도현","21_윤도현 등장곡+응원가.mp3"],
-      ["주효상","22_주효상 등장곡+응원가.mp3"],["한준수","23_한준수 등장곡+응원가.mp3"],
-      ["변우혁","24_변우혁 등장곡+응원가.mp3"],["한승연","25_한승연 등장곡.mp3"],
-      ["황대인","27_황대인 등장곡+응원가.mp3"],["김석환","28_김석환 등장곡+응원가.mp3"],
-      ["이호연","29_이호연 등장곡+응원가.mp3"],["김민규","30_김민규 등장곡+응원가.mp3"],
-      ["박상준","31_박상준 등장곡+응원가.mp3"],["오선우","32_오선우 등장곡+응원가.mp3"],
-      ["고종욱","33_고종욱 등장곡+응원가.mp3"]
-    ],
-    teamSongs: [
-      ["기아 없이는 못살아","01_기아 없이는 못살아.mp3"],["풀카운트 송","04_풀카운트 송.mp3"],
-      ["볼넷 송","05_볼넷 송.mp3"],["공통 안타 송","07_공통 안타 송.mp3"],
-      ["영원하리라 기아타이거즈","34_영원하리라 기아타이거즈.mp3"],["미치도록 사랑해요","35_미치도록 사랑해요.mp3"],
-      ["두다","36_두다.mp3"],["승리를 위해","37_승리를 위해.mp3"],
-      ["버터플라이","38_버터플라이.mp3"],["열광하라 최강기아","39_열광하라 최강기아.mp3"],
-      ["언제나 승리하리","40_언제나 승리하리.mp3"],["영원히 사랑한다","41_영원히 사랑한다.mp3"],
-      ["최강기아를 위해","42_최강기아를 위해.mp3"],["광주의 함성","44_광주의 함성.mp3"],
-      ["사랑한다 기아","46_사랑한다 기아.mp3"],["최강기아 승리하리라","47_최강기아 승리하리라.mp3"],
-      ["우리는 하나","51_우리는 하나.mp3"],["남행열차","52_남행열차.mp3"]
-    ]
+    sub: "선수 응원가 25곡 · 팀 응원가 26곡 · 라인업 모드",
+    dir: "audio/kia",
+    intro: { title: "라인업송", file: "01 라인업송.mp3" },
+    players: [["박정우","02 박정우.mp3"],["박재현","03 박재현.mp3"],["김도영","04 김도영.mp3"],["카스트로","05 카스트로.mp3"],["나성범","06 나성범.mp3"],["김선빈","07 김선빈.mp3"],["하주석","08 하주석.mp3"],["김태군","09 김태군.mp3"],["김호령","10 김호령.mp3"],["박민","11 박민.mp3"],["이창진","12 이창진.mp3"],["정현창","13 정현창.mp3"],["김규성","14 김규성.mp3"],["윤도현","15 윤도현.mp3"],["주효상","16 주효상.mp3"],["한준수","17 한준수.mp3"],["변우혁","18 변우혁.mp3"],["한승연","19 한승연.mp3"],["황대인","20 황대인.mp3"],["김석환","21 김석환.mp3"],["이호연","22 이호연.mp3"],["김민규","23 김민규.mp3"],["박상준","24 박상준.mp3"],["오선우","25 오선우.mp3"],["고종욱","26 고종욱.mp3"]],
+    teamSongs: [["기아 없이는 못살아","27 기아 없이는 못살아.mp3"],["풀카운트 송","28 풀카운트 송.mp3"],["볼넷 송","29 볼넷 송.mp3"],["공통 안타 송","30 공통 안타 송.mp3"],["공통 안타 송","31 공통 안타 송.mp3"],["공통 안타 송","32 공통 안타 송.mp3"],["공통 안타 송","33 공통 안타 송.mp3"],["영원하리라 기아타이거즈","34 영원하리라 기아타이거즈.mp3"],["미치도록 사랑해요","35 미치도록 사랑해요.mp3"],["두다","36 두다.mp3"],["승리를 위해","37 승리를 위해.mp3"],["버터플라이","38 버터플라이.mp3"],["열광하라 최강기아","39 열광하라 최강기아.mp3"],["언제나 승리하리","40 언제나 승리하리.mp3"],["영원히 사랑한다","41 영원히 사랑한다.mp3"],["최강기아를 위해","42 최강기아를 위해.mp3"],["승리를 위해 함께 부르자","43 승리를 위해 함께 부르자.mp3"],["광주의 함성","44 광주의 함성.mp3"],["오!최강기아","45 오!최강기아.mp3"],["사랑한다 기아","46 사랑한다 기아.mp3"],["최강기아 승리하리라","47 최강기아 승리하리라.mp3"],["열광하라 타이거즈","48 열광하라 타이거즈.mp3"],["기아를 응원하라","49 기아를 응원하라.mp3"],["외쳐라 최강기아","50 외쳐라 최강기아.mp3"],["우리는 하나","51 우리는 하나.mp3"],["남행열차","52 남행열차.mp3"]]
   },
   doosan: {
     name: "두산 베어스",
-    sub: "선수 응원가 29곡 · 팀 응원가 19곡 · 라인업 모드",
-    dir: "audio/doosan",
     badge: "🐻",
-    intro: { title: "라인업 송", file: "02_라인업 송.mp3" },
-    players: [
-      ["박찬호","03_박찬호 등장곡+응원가.mp3"],["안재석","05_안재석 등장곡+응원가.mp3"],
-      ["박준순","06_박준순 등장곡+응원가.mp3"],["양의지","07_양의지 등장곡+응원가.mp3"],
-      ["김민석","08_김민석 등장곡+응원가.mp3"],["세베리노","11_세베리노 등장곡+응원가.mp3"],
-      ["양석환","12_양석환 등장곡+응원가.mp3"],["조수행","13_조수행 등장곡+응원가.mp3"],
-      ["정수빈","14_정수빈 등장곡+응원가.mp3"],["임종성","15_임종성 등장곡.mp3"],
-      ["오명진","17_오명진 등장곡+응원가.mp3"],["전다민","18_전다민 등장곡.mp3"],
-      ["김민혁","20_김민혁 등장곡+응원가.mp3"],["김동준","21_김동준 등장곡+응원가.mp3"],
-      ["이유찬","22_이유찬 등장곡+응원가.mp3"],["류승민","23_류승민 등장곡+응원가.mp3"],
-      ["김기연","24_김기연 등장곡+응원가.mp3"],["강승호","25_강승호 등장곡+응원가.mp3"],
-      ["손아섭","26_손아섭 등장곡+응원가.mp3"],["윤준호","27_윤준호 등장곡+응원가.mp3"],
-      ["김대한","28_김대한 등장곡+응원가.mp3"],["김인태","29_김인태 등장곡+응원가.mp3"],
-      ["홍성호","30_홍성호 등장곡+응원가.mp3"],["박지훈","31_박지훈 등장곡+응원가.mp3"]
-    ],
-    teamSongs: [
-      ["경기 개시 음악","01_경기 개시 음악.mp3"],["풀카운트 송","09_풀카운트 송.mp3"],
-      ["볼넷 송","10_볼넷 송.mp3"],["승리의 두산","32_승리의 두산.mp3"],
-      ["우리 두산 멋진 두산","33_우리 두산 멋진 두산.mp3"],["라랄라 두산 베어스","34_라랄라 두산 베어스.mp3"],
-      ["우리의 베어스","35_우리의 베어스.mp3"],["승리를 위해","36_승리를 위해.mp3"],
-      ["뱃노래","37_뱃노래.mp3"],["야야야 두산","38_야야야 두산.mp3"],
-      ["가자! 두산 베어스","39_가자! 두산 베어스.mp3"],["최강두산 오오오","40_최강두산 오오오.mp3"],
-      ["챔피언 두산","42_챔피언 두산.mp3"],["미라클 두산","46_미라클 두산.mp3"],
-      ["Bravo, My life","47_Bravo, My life.mp3"],["두산 승리하리라","48_두산 승리하리라.mp3"],
-      ["서울의 베어스","49_서울의 베어스.mp3"],["해냈다 두산","50_해냈다 두산.mp3"],
-      ["승리를 위하여","51_승리를 위하여.mp3"]
-    ]
-  },
-  kt: {
-    name: "kt wiz",
     sub: "선수 응원가 24곡 · 팀 응원가 26곡 · 라인업 모드",
-    dir: "audio/kt",
-    badge: "🧙‍♂️",
-    intro: { title: "라인업 송", file: "03_라인업 송.mp3" },
-    players: [
-      ["최원준","04_최원준 등장곡+응원가.mp3"],["김민혁","07_김민혁 등장곡+응원가.mp3"],
-      ["안현민","09_안현민 등장곡+응원가.mp3"],["힐리어드","10_힐리어드 등장곡+응원가.mp3"],
-      ["김현수","11_김현수 등장곡+응원가.mp3"],["허경민","12_허경민 등장곡+응원가.mp3"],
-      ["김상수","13_김상수 등장곡+응원가.mp3"],["한승택","14_한승택 등장곡+응원가.mp3"],
-      ["권동진","15_권동진 등장곡+응원가.mp3"],["오윤석","16_오윤석 등장곡+응원가.mp3"],
-      ["이강민","17_이강민 등장곡+응원가.mp3"],["안치영","18_안치영 등장곡+응원가.mp3"],
-      ["류현인","19_류현인 등장곡+응원가.mp3"],["장성우","20_장성우 등장곡+응원가.mp3"],
-      ["문상철","21_문상철 등장곡+응원가.mp3"],["배정대","22_배정대 등장곡+응원가.mp3"],
-      ["이정훈","23_이정훈 등장곡+응원가.mp3"],["조대현","24_조대현 등장곡+응원가.mp3"],
-      ["장진혁","25_장진혁 등장곡+응원가.mp3"],["강현우","26_강현우 등장곡+응원가.mp3"],
-      ["장준원","27_장준원 등장곡+응원가.mp3"],["유준규","28_유준규 등장곡+응원가.mp3"]
-    ],
-    teamSongs: [
-      ["승리하리라 KT WIZ","01_승리하리라 KT WIZ.mp3"],["풀카운트 송","05_풀카운트 송.mp3"],
-      ["볼넷 송","06_볼넷 송.mp3"],["투혼가","30_투혼가.mp3"],
-      ["너와 내가 우리가 되어","31_너와 내가 우리가 되어.mp3"],["KT의 승리 위해","32_KT의 승리 위해.mp3"],
-      ["KT WIZ 승리하라","33_KT WIZ 승리하라.mp3"],["Don't stop KT","34_Don't stop KT.mp3"],
-      ["KT WIZ 영원하리라","35_KT WIZ 영원하리라.mp3"],["Let's go KT WIZ","37_Let's go KT WIZ.mp3"],
-      ["승리를 위하여","38_승리를 위하여.mp3"],["우리는 KT WIZ","40_우리는 KT WIZ.mp3"],
-      ["PASSION","44_PASSION.mp3"],["비상하라 KT","46_비상하라 KT.mp3"],
-      ["패기와 열정","48_패기와 열정.mp3"],["외쳐라 승리의 KT WIZ","49_외쳐라 승리의 KT WIZ.mp3"],
-      ["수원 KT 승리를 위해","50_수원 KT 승리를 위해.mp3"],["WINNING KT","52_WINNING KT.mp3"],
-      ["사랑한다 수원 KT WIZ","54_사랑한다 수원 KT WIZ.mp3"],["마법의 성","60_마법의 성.mp3"]
-    ]
+    dir: "audio/doosan",
+    intro: { title: "라인업송", file: "01 라인업송.mp3" },
+    players: [["박찬호","02 박찬호.mp3"],["안재석","03 안재석.mp3"],["박준순","04 박준순.mp3"],["양의지","05 양의지.mp3"],["김민석","06 김민석.mp3"],["세베리노","07 세베리노.mp3"],["양석환","08 양석환.mp3"],["조수행","09 조수행.mp3"],["정수빈","10 정수빈.mp3"],["임종성","11 임종성.mp3"],["오명진","12 오명진.mp3"],["전다민","13 전다민.mp3"],["김민혁","14 김민혁.mp3"],["김동준","15 김동준.mp3"],["이유찬","16 이유찬.mp3"],["류승민","17 류승민.mp3"],["김기연","18 김기연.mp3"],["강승호","19 강승호.mp3"],["손아섭","20 손아섭.mp3"],["윤준호","21 윤준호.mp3"],["김대한","22 김대한.mp3"],["김인태","23 김인태.mp3"],["홍성호","24 홍성호.mp3"],["박지훈","25 박지훈.mp3"]],
+    teamSongs: [["경기 개시 음악","26 경기 개시 음악.mp3"],["공통 안타 송","27 공통 안타 송.mp3"],["풀카운트 송","28 풀카운트 송.mp3"],["볼넷 송","29 볼넷 송.mp3"],["공통 안타 송","30 공통 안타 송.mp3"],["공통 안타 송","31 공통 안타 송.mp3"],["승리의 두산","32 승리의 두산.mp3"],["우리 두산 멋진 두산","33 우리 두산 멋진 두산.mp3"],["라랄라 두산 베어스","34 라랄라 두산 베어스.mp3"],["우리의 베어스","35 우리의 베어스.mp3"],["승리를 위해","36 승리를 위해.mp3"],["뱃노래","37 뱃노래.mp3"],["야야야 두산","38 야야야 두산.mp3"],["가자! 두산 베어스","39 가자! 두산 베어스.mp3"],["최강두산 오오오","40 최강두산 오오오.mp3"],["해야 해야","41 해야 해야.mp3"],["챔피언 두산","42 챔피언 두산.mp3"],["서울 두산 승리하리라","43 서울 두산 승리하리라.mp3"],["해야","44 해야.mp3"],["락 투 더 두산","45 락 투 더 두산.mp3"],["미라클 두산","46 미라클 두산.mp3"],["Bravo, My life","47 Bravo, My life.mp3"],["두산 승리하리라","48 두산 승리하리라.mp3"],["서울의 베어스","49 서울의 베어스.mp3"],["해냈다 두산","50 해냈다 두산.mp3"],["승리를 위하여","51 승리를 위하여.mp3"]]
   },
   lg: {
     name: "LG 트윈스",
-    sub: "선수 응원가 20곡 · 팀 응원가 21곡 · 라인업 모드",
+    badge: "👥",
+    sub: "선수 응원가 17곡 · 팀 응원가 26곡 · 라인업 모드",
     dir: "audio/lg",
-    badge: "⚾",
-    intro: { title: "라인업송", file: "02_라인업송.mp3" },
-    players: [
-      ["신민재","04_신민재 등장곡+응원가.mp3"],["박해민","05_박해민 등장곡+응원가.mp3"],
-      ["오스틴","06_오스틴 등장곡+응원가.mp3"],["송찬의","07_송찬의 등장곡+응원가.mp3"],
-      ["문정빈","10_문정빈 등장곡+응원가.mp3"],["문보경","11_문보경 등장곡+응원가.mp3"],
-      ["오지환","12_오지환 등장곡+응원가.mp3"],["박동원","13_박동원 등장곡+응원가.mp3"],
-      ["홍창기","14_홍창기 등장곡+응원가.mp3"],["최원영","15_최원영 등장곡+응원가.mp3"],
-      ["구본혁","16_구본혁 등장곡+응원가.mp3"],["이영빈","17_이영빈 등장곡+응원가.mp3"],
-      ["문성주","18_문성주 등장곡+응원가.mp3"],["함창건","19_함창건 등장곡.mp3"],
-      ["이재원","21_이재원 등장곡+응원가.mp3"],["천성호","22_천성호 등장곡+응원가.mp3"],
-      ["이주헌","23_이주헌 등장곡+응원가.mp3"]
-    ],
-    teamSongs: [
-      ["경기 개시 송","01_경기 개시 송.mp3"],["셀리오","03_셀리오.mp3"],
-      ["풀카운트 송","08_풀카운트 송.mp3"],["볼넷 송","09_볼넷 송.mp3"],
-      ["LG 사랑한다 LG","24_LG 사랑한다 LG.mp3"],["서울 메들리","25_서울 메들리.mp3"],
-      ["서울의 찬가","26_서울의 찬가.mp3"],["무적의 LG","28_무적의 LG.mp3"],
-      ["엘팬의 북소리","29_엘팬의 북소리.mp3"],["LG 없이는 못 살아","30_LG 없이는 못 살아.mp3"],
-      ["사랑한다 LG","33_사랑한다 LG.mp3"],["LG여 비상하라","34_LG여 비상하라.mp3"],
-      ["GO TWINS","35_GO TWINS.mp3"],["LG의 승리를 위하여","37_LG의 승리를 위하여.mp3"],
-      ["FOREVER LG","40_FOREVER LG.mp3"],["여행을 떠나요","42_여행을 떠나요.mp3"],
-      ["서울의 아리아","43_서울의 아리아.mp3"]
-    ]
+    intro: { title: "라인업송", file: "01 라인업송.mp3" },
+    players: [["신민재","02 신민재.mp3"],["박해민","03 박해민.mp3"],["오스틴","04 오스틴.mp3"],["송찬의","05 송찬의.mp3"],["문정빈","06 문정빈.mp3"],["문보경","07 문보경.mp3"],["오지환","08 오지환.mp3"],["박동원","09 박동원.mp3"],["홍창기","10 홍창기.mp3"],["최원영","11 최원영.mp3"],["구본혁","12 구본혁.mp3"],["이영빈","13 이영빈.mp3"],["문성주","14 문성주.mp3"],["함창건","15 함창건.mp3"],["이재원","16 이재원.mp3"],["천성호","17 천성호.mp3"],["이주헌","18 이주헌.mp3"]],
+    teamSongs: [["경기 개시 송","19 경기 개시 송.mp3"],["셀리오","20 셀리오.mp3"],["풀카운트 송","21 풀카운트 송.mp3"],["볼넷 송","22 볼넷 송.mp3"],["공통 안타 송","23 공통 안타 송.mp3"],["LG 사랑한다 LG","24 LG 사랑한다 LG.mp3"],["서울 메들리","25 서울 메들리.mp3"],["서울의 찬가","26 서울의 찬가.mp3"],["서울의 모정","27 서울의 모정.mp3"],["무적의 LG","28 무적의 LG.mp3"],["엘팬의 북소리","29 엘팬의 북소리.mp3"],["LG 없이는 못 살아","30 LG 없이는 못 살아.mp3"],["강해져라","31 강해져라.mp3"],["나의 사랑 서울 LG","32 나의 사랑 서울 LG.mp3"],["사랑한다 LG","33 사랑한다 LG.mp3"],["LG여 비상하라","34 LG여 비상하라.mp3"],["GO TWINS","35 GO TWINS.mp3"],["승리하라 LG여","36 승리하라 LG여.mp3"],["LG의 승리를 위하여","37 LG의 승리를 위하여.mp3"],["우리의 함성","38 우리의 함성.mp3"],["승리의 포효","39 승리의 포효.mp3"],["FOREVER LG","40 FOREVER LG.mp3"],["최후의 결투","41 최후의 결투.mp3"],["여행을 떠나요","42 여행을 떠나요.mp3"],["서울의 아리아","43 서울의 아리아.mp3"],["승리의 노래","44 승리의 노래.mp3"]]
   },
   nc: {
     name: "NC 다이노스",
-    sub: "선수 응원가 27곡 · 팀 응원가 30곡 · 라인업 모드",
+    badge: "🦕",
+    sub: "선수 응원가 24곡 · 팀 응원가 33곡 · 라인업 모드",
     dir: "audio/nc",
-    badge: "🦖",
-    intro: { title: "라인업 송", file: "01_라인업 송.mp3" },
-    players: [
-      ["김주원","03_김주원 등장곡+응원가.mp3"],["권희동","06_권희동 등장곡+응원가.mp3"],
-      ["박민우","07_박민우 등장곡+응원가.mp3"],["블레인","08_블레인 등장곡+응원가.mp3"],
-      ["김휘집","09_김휘집 등장곡+응원가.mp3"],["박건우","11_박건우 등장곡+응원가.mp3"],
-      ["김형준","12_김형준 등장곡+응원가.mp3"],["천재환","13_천재환 등장곡+응원가.mp3"],
-      ["최정원","14_최정원 등장곡+응원가.mp3"],["서호철","15_서호철 등장곡+응원가.mp3"],
-      ["오태양","16_오태양 등장곡.mp3"],["신재인","18_신재인 등장곡+응원가.mp3"],
-      ["홍종표","19_홍종표 등장곡+응원가.mp3"],["김한별","20_김한별 등장곡+응원가.mp3"],
-      ["도태훈","21_도태훈 등장곡+응원가.mp3"],["안중열","22_안중열 등장곡+응원가.mp3"],
-      ["이희성","23_이희성 등장곡+응원가.mp3"],["한석현","24_한석현 등장곡+응원가.mp3"],
-      ["오영수","25_오영수 등장곡+응원가.mp3"],["김정호","26_김정호 등장곡+응원가.mp3"],
-      ["고준휘","27_고준휘 등장곡+응원가.mp3"],["박시원","28_박시원 등장곡+응원가.mp3"],
-      ["이우성","29_이우성 등장곡+응원가.mp3"],["오장한","30_오장한 등장곡+응원가.mp3"]
-    ],
-    teamSongs: [
-      ["체로키","02_체로키.mp3"],["풀카운트 송","04_풀카운트 송.mp3"],
-      ["볼넷 송","05_볼넷 송.mp3"],["NC를 위하여","31_NC를 위하여.mp3"],
-      ["다이노스 찬가","32_다이노스 찬가.mp3"],["우린 해낼 수 있다","34_우린 해낼 수 있다.mp3"],
-      ["Dinos ANTHEM","35_Dinos ANTHEM.mp3"],["We are NC","36_We are NC.mp3"],
-      ["외쳐라 다이노스","38_외쳐라 다이노스.mp3"],["챔피언 NC","39_챔피언 NC.mp3"],
-      ["창원의 NC","41_창원의 NC.mp3"],["사랑한다 NC","42_사랑한다 NC.mp3"],
-      ["승리의 NC","43_승리의 NC.mp3"],["다이노스 승리를 위하여","48_다이노스 승리를 위하여.mp3"],
-      ["창원 로망스","51_창원 로망스.mp3"],["마산스트리트","58_마산스트리트.mp3"]
-    ]
+    intro: { title: "라인업송", file: "01 라인업송.mp3" },
+    players: [["김주원","02 김주원.mp3"],["권희동","03 권희동.mp3"],["박민우","04 박민우.mp3"],["블레인","05 블레인.mp3"],["김휘집","06 김휘집.mp3"],["박건우","07 박건우.mp3"],["김형준","08 김형준.mp3"],["천재환","09 천재환.mp3"],["최정원","10 최정원.mp3"],["서호철","11 서호철.mp3"],["오태양","12 오태양.mp3"],["신재인","13 신재인.mp3"],["홍종표","14 홍종표.mp3"],["김한별","15 김한별.mp3"],["도태훈","16 도태훈.mp3"],["안중열","17 안중열.mp3"],["이희성","18 이희성.mp3"],["한석현","19 한석현.mp3"],["오영수","20 오영수.mp3"],["김정호","21 김정호.mp3"],["고준휘","22 고준휘.mp3"],["박시원","23 박시원.mp3"],["이우성","24 이우성.mp3"],["오장한","25 오장한.mp3"]],
+    teamSongs: [["체로키","26 체로키.mp3"],["풀카운트 송","27 풀카운트 송.mp3"],["볼넷 송","28 볼넷 송.mp3"],["공통 안타 송","29 공통 안타 송.mp3"],["공통 안타 송","30 공통 안타 송.mp3"],["NC를 위하여","31 NC를 위하여.mp3"],["다이노스 찬가","32 다이노스 찬가.mp3"],["다이노스 다이겨쓰","33 다이노스 다이겨쓰.mp3"],["우린 해낼 수 있다","34 우린 해낼 수 있다.mp3"],["Dinos ANTHEM","35 Dinos ANTHEM.mp3"],["We are NC","36 We are NC.mp3"],["폼","37 폼.mp3"],["외쳐라 다이노스","38 외쳐라 다이노스.mp3"],["챔피언 NC","39 챔피언 NC.mp3"],["미친듯 놀자","40 미친듯 놀자.mp3"],["창원의 NC","41 창원의 NC.mp3"],["사랑한다 NC","42 사랑한다 NC.mp3"],["승리의 NC","43 승리의 NC.mp3"],["승리의 NC 질주의 다이노스","44 승리의 NC 질주의 다이노스.mp3"],["승리의 깃발","45 승리의 깃발.mp3"],["우리의 NC","46 우리의 NC.mp3"],["라랄라 NC","47 라랄라 NC.mp3"],["다이노스 승리를 위하여","48 다이노스 승리를 위하여.mp3"],["TOGETHER NC","49 TOGETHER NC.mp3"],["다이노스여 일어나라","50 다이노스여 일어나라.mp3"],["창원 로망스","51 창원 로망스.mp3"],["하나가 되어","52 하나가 되어.mp3"],["다이노스 NO.1","53 다이노스 NO.1.mp3"],["운명의 부름","54 운명의 부름.mp3"],["위하여","55 위하여.mp3"],["승리의 함성","56 승리의 함성.mp3"],["승리를 했다","57 승리를 했다.mp3"],["마산스트리트","58 마산스트리트.mp3"]]
   },
   ssg: {
     name: "SSG 랜더스",
-    sub: "선수 응원가 26곡 · 팀 응원가 18곡 · 라인업 모드",
+    badge: "⚓",
+    sub: "선수 응원가 24곡 · 팀 응원가 26곡 · 라인업 모드",
     dir: "audio/ssg",
-    badge: "🚀",
-    intro: { title: "라인업송", file: "04_라인업송.mp3" },
-    players: [
-      ["박성한","05_박성한 등장곡+응원가.mp3"],["에레디아","06_에레디아 등장곡+응원가.mp3"],
-      ["최정","09_최정 등장곡+응원가.mp3"],["김재환","10_김재환 등장곡+응원가.mp3"],
-      ["고명준","11_고명준 등장곡+응원가.mp3"],["전의산","12_전의산 등장곡+응원가.mp3"],
-      ["최지훈","13_최지훈 등장곡+응원가.mp3"],["조형우","14_조형우 등장곡+응원가.mp3"],
-      ["정준재","15_정준재 등장곡+응원가.mp3"],["최준우","17_최준우 등장곡+응원가.mp3"],
-      ["안상현","18_안상현 등장곡+응원가.mp3"],["채현우","19_채현우 등장곡+응원가.mp3"],
-      ["김민식","20_김민식 등장곡+응원가.mp3"],["신범수","21_신범수 등장곡+응원가.mp3"],
-      ["김성욱","22_김성욱 등장곡+응원가.mp3"],["한유섬","23_한유섬 등장곡+응원가.mp3"],
-      ["오태곤","24_오태곤 등장곡+응원가.mp3"],["류효승","25_류효승 등장곡+응원가.mp3"],
-      ["이지영","26_이지영 등장곡+응원가.mp3"],["안재연","27_안재연 등장곡.mp3"],
-      ["임근우","29_임근우 등장곡+응원가.mp3"],["김창평","30_김창평 등장곡+응원가.mp3"],
-      ["오시후","31_오시후 등장곡.mp3"],["홍대인","33_홍대인 등장곡+응원가.mp3"]
-    ],
-    teamSongs: [
-      ["경기 개시 음악","01_경기 개시 음악.mp3"],["Let's GO","02_Let's GO.mp3"],
-      ["풀카운트 송","07_풀카운트 송.mp3"],["볼넷 송","08_볼넷 송.mp3"],
-      ["We are the LANDERS","34_We are the LANDERS.mp3"],["우리는 인천 SSG","35_우리는 인천 SSG.mp3"],
-      ["불꽃투혼 랜더스","37_불꽃투혼 랜더스.mp3"],["승리를 외쳐라","38_승리를 외쳐라.mp3"],
-      ["외쳐라 랜더스","40_외쳐라 랜더스.mp3"],["WE ARE LANDERS GO!","42_WE ARE LANDERS GO!.mp3"],
-      ["항해하라 랜더스","45_항해하라 랜더스.mp3"],["프론티어 랜더스","47_프론티어 랜더스.mp3"],
-      ["연안부두","48_연안부두.mp3"],["불티","49_불티.mp3"],
-      ["J에게","50_J에게.mp3"],["투혼의 랜더스","51_투혼의 랜더스.mp3"]
-    ]
+    intro: { title: "라인업송", file: "01 라인업송.mp3" },
+    players: [["박성한","02 박성한.mp3"],["에레디아","03 에레디아.mp3"],["최정","04 최정.mp3"],["김재환","05 김재환.mp3"],["고명준","06 고명준.mp3"],["전의산","07 전의산.mp3"],["최지훈","08 최지훈.mp3"],["조형우","09 조형우.mp3"],["정준재","10 정준재.mp3"],["최준우","11 최준우.mp3"],["안상현","12 안상현.mp3"],["채현우","13 채현우.mp3"],["김민식","14 김민식.mp3"],["신범수","15 신범수.mp3"],["김성욱","16 김성욱.mp3"],["한유섬","17 한유섬.mp3"],["오태곤","18 오태곤.mp3"],["류효승","19 류효승.mp3"],["이지영","20 이지영.mp3"],["안재연","21 안재연.mp3"],["임근우","22 임근우.mp3"],["김창평","23 김창평.mp3"],["오시후","24 오시후.mp3"],["홍대인","25 홍대인.mp3"]],
+    teamSongs: [["경기 개시 음악","26 경기 개시 음악.mp3"],["Let's GO","27 Let's GO.mp3"],["라인업 소개 음악","28 라인업 소개 음악.mp3"],["풀카운트 송","29 풀카운트 송.mp3"],["볼넷 송","30 볼넷 송.mp3"],["공통 안타 송","31 공통 안타 송.mp3"],["공통 안타 송","32 공통 안타 송.mp3"],["공통 안타 송","33 공통 안타 송.mp3"],["We are the LANDERS","34 We are the LANDERS.mp3"],["우리는 인천 SSG","35 우리는 인천 SSG.mp3"],["되고송","36 되고송.mp3"],["불꽃투혼 랜더스","37 불꽃투혼 랜더스.mp3"],["승리를 외쳐라","38 승리를 외쳐라.mp3"],["랜더스의 승리 위해","39 랜더스의 승리 위해.mp3"],["외쳐라 랜더스","40 외쳐라 랜더스.mp3"],["우린 랜더스","41 우린 랜더스.mp3"],["WE ARE LANDERS GO!","42 WE ARE LANDERS GO!.mp3"],["anding High TOGETHER","43 anding High TOGETHER.mp3"],["랜더스여","44 랜더스여.mp3"],["항해하라 랜더스","45 항해하라 랜더스.mp3"],["승리의 깃발","46 승리의 깃발.mp3"],["프론티어 랜더스","47 프론티어 랜더스.mp3"],["연안부두","48 연안부두.mp3"],["불티","49 불티.mp3"],["J에게","50 J에게.mp3"],["투혼의 랜더스","51 투혼의 랜더스.mp3"]]
   },
   hanwha: {
     name: "한화 이글스",
-    sub: "선수 응원가 25곡 · 팀 응원가 18곡 · 라인업 모드",
-    dir: "audio/hanwha",
     badge: "🦅",
-    intro: { title: "라인업송", file: "01_라인업송.mp3" },
-    players: [
-      ["최인호","02_최인호 등장곡+응원가.mp3"],["페라자","03_페라자 등장곡+응원가.mp3"],
-      ["문현빈","04_문현빈 등장곡+응원가.mp3"],["강백호","07_강백호 등장곡+응원가.mp3"],
-      ["노시환","08_노시환 등장곡+응원가.mp3"],["허인서","09_허인서 등장곡+응원가.mp3"],
-      ["김태연","10_김태연 등장곡+응원가.mp3"],["정은원","11_정은원 등장곡+응원가.mp3"],
-      ["심우준","12_심우준 등장곡+응원가.mp3"],["이도윤","13_이도윤 등장곡+응원가.mp3"],
-      ["임종찬","14_임종찬 등장곡+응원가.mp3"],["이진영","15_이진영 등장곡+응원가.mp3"],
-      ["최재훈","16_최재훈 등장곡+응원가.mp3"],["이재원","17_이재원 등장곡+응원가.mp3"],
-      ["채은성","18_채은성 등장곡+응원가.mp3"],["장규현","19_장규현 등장곡.mp3"],
-      ["한지윤","21_한지윤 등장곡.mp3"],["이원석","23_이원석 등장곡+응원가.mp3"],
-      ["박상언","24_박상언 등장곡+응원가.mp3"],["오재원","25_오재원 등장곡.mp3"],
-      ["박정현","27_박정현 등장곡+응원가.mp3"],["황영묵","28_황영묵 등장곡+응원가.mp3"]
-    ],
-    teamSongs: [
-      ["풀카운트 송","05_풀카운트 송.mp3"],["볼넷 송","06_볼넷 송.mp3"],
-      ["불타는 태양","29_불타는 태양.mp3"],["그대에게","30_그대에게.mp3"],
-      ["이글스 위하여","31_이글스 위하여.mp3"],["THIS IS OUR SONG","34_THIS IS OUR SONG.mp3"],
-      ["외쳐라 이글스","35_외쳐라 이글스.mp3"],["승리위해 외쳐라","37_승리위해 외쳐라.mp3"],
-      ["보아라 기억하라","39_보아라 기억하라.mp3"],["영원히 최강한화","40_영원히 최강한화.mp3"],
-      ["우리의 사랑 한화이글스","41_우리의 사랑 한화이글스.mp3"],["사랑한다 최강한화","43_사랑한다 최강한화.mp3"],
-      ["행복송","44_행복송.mp3"],["사랑한다 이글스","45_사랑한다 이글스.mp3"],
-      ["영원한 챔프","46_영원한 챔프.mp3"]
-    ]
+    sub: "선수 응원가 22곡 · 팀 응원가 23곡 · 라인업 모드",
+    dir: "audio/hanwha",
+    intro: { title: "라인업송", file: "01 라인업송.mp3" },
+    players: [["최인호","02 최인호.mp3"],["페라자","03 페라자.mp3"],["문현빈","04 문현빈.mp3"],["강백호","05 강백호.mp3"],["노시환","06 노시환.mp3"],["허인서","07 허인서.mp3"],["김태연","08 김태연.mp3"],["정은원","09 정은원.mp3"],["심우준","10 심우준.mp3"],["이도윤","11 이도윤.mp3"],["임종찬","12 임종찬.mp3"],["이진영","13 이진영.mp3"],["최재훈","14 최재훈.mp3"],["이재원","15 이재원.mp3"],["채은성","16 채은성.mp3"],["장규현","17 장규현.mp3"],["한지윤","18 한지윤.mp3"],["이원석","19 이원석.mp3"],["박상언","20 박상언.mp3"],["오재원","21 오재원.mp3"],["박정현","22 박정현.mp3"],["황영묵","23 황영묵.mp3"]],
+    teamSongs: [["풀카운트 송","24 풀카운트 송.mp3"],["볼넷 송","25 볼넷 송.mp3"],["공통 안타 송","26 공통 안타 송.mp3"],["공통 안타 송","27 공통 안타 송.mp3"],["공통 안타 송","28 공통 안타 송.mp3"],["불타는 태양","29 불타는 태양.mp3"],["그대에게","30 그대에게.mp3"],["이글스 위하여","31 이글스 위하여.mp3"],["이글스 화이팅","32 이글스 화이팅.mp3"],["텐션 올리고","33 텐션 올리고.mp3"],["THIS IS OUR SONG","34 THIS IS OUR SONG.mp3"],["외쳐라 이글스","35 외쳐라 이글스.mp3"],["우리가 누구","36 우리가 누구.mp3"],["승리위해 외쳐라","37 승리위해 외쳐라.mp3"],["우리들의 열정","38 우리들의 열정.mp3"],["보아라 기억하라","39 보아라 기억하라.mp3"],["영원히 최강한화","40 영원히 최강한화.mp3"],["우리의 사랑 한화이글스","41 우리의 사랑 한화이글스.mp3"],["내 사랑 한화 내 사랑 이글스","42 내 사랑 한화 내 사랑 이글스.mp3"],["사랑한다 최강한화","43 사랑한다 최강한화.mp3"],["행복송","44 행복송.mp3"],["사랑한다 이글스","45 사랑한다 이글스.mp3"],["영원한 챔프","46 영원한 챔프.mp3"]]
+  },
+  kt: {
+    name: "KT 위즈",
+    badge: "🧙",
+    sub: "선수 응원가 22곡 · 팀 응원가 35곡 · 라인업 모드",
+    dir: "audio/kt",
+    intro: { title: "라인업송", file: "01 라인업송.mp3" },
+    players: [["최원준","02 최원준.mp3"],["김민혁","03 김민혁.mp3"],["안현민","04 안현민.mp3"],["힐리어드","05 힐리어드.mp3"],["김현수","06 김현수.mp3"],["허경민","07 허경민.mp3"],["김상수","08 김상수.mp3"],["한승택","09 한승택.mp3"],["권동진","10 권동진.mp3"],["오윤석","11 오윤석.mp3"],["이강민","12 이강민.mp3"],["안치영","13 안치영.mp3"],["류현인","14 류현인.mp3"],["장성우","15 장성우.mp3"],["문상철","16 문상철.mp3"],["배정대","17 배정대.mp3"],["이정훈","18 이정훈.mp3"],["조대현","19 조대현.mp3"],["장진혁","20 장진혁.mp3"],["강현우","21 강현우.mp3"],["장준원","22 장준원.mp3"],["유준규","23 유준규.mp3"]],
+    teamSongs: [["승리하리라 KT WIZ","24 승리하리라 KT WIZ.mp3"],["라인업 소개 곡","25 라인업 소개 곡.mp3"],["풀카운트 송","26 풀카운트 송.mp3"],["볼넷 송","27 볼넷 송.mp3"],["공통 안타 송","28 공통 안타 송.mp3"],["공통 안타 송","29 공통 안타 송.mp3"],["투혼가","30 투혼가.mp3"],["너와 내가 우리가 되어","31 너와 내가 우리가 되어.mp3"],["KT의 승리 위해","32 KT의 승리 위해.mp3"],["KT WIZ 승리하라","33 KT WIZ 승리하라.mp3"],["Don't stop KT","34 Don't stop KT.mp3"],["KT WIZ 영원하리라","35 KT WIZ 영원하리라.mp3"],["우리 모두 KT","36 우리 모두 KT.mp3"],["Let's go KT WIZ","37 Let's go KT WIZ.mp3"],["승리를 위하여","38 승리를 위하여.mp3"],["KT WIZ CLAP","39 KT WIZ CLAP.mp3"],["우리는 KT WIZ","40 우리는 KT WIZ.mp3"],["KT 라랄라","41 KT 라랄라.mp3"],["으랏차차","42 으랏차차.mp3"],["PASSION","43 PASSION.mp3"],["승리를 향해 비상하라","44 승리를 향해 비상하라.mp3"],["비상하라 KT","45 비상하라 KT.mp3"],["투혼 KT","46 투혼 KT.mp3"],["패기와 열정","47 패기와 열정.mp3"],["외쳐라 승리의 KT WIZ","48 외쳐라 승리의 KT WIZ.mp3"],["수원 KT 승리를 위해","49 수원 KT 승리를 위해.mp3"],["승리의 함성","50 승리의 함성.mp3"],["WINNING KT","51 WINNING KT.mp3"],["KT의 노래","52 KT의 노래.mp3"],["사랑한다 수원 KT WIZ","53 사랑한다 수원 KT WIZ.mp3"],["나의 사랑 KT WIZ","54 나의 사랑 KT WIZ.mp3"],["지금 이 순간","55 지금 이 순간.mp3"],["우리의 자랑","56 우리의 자랑.mp3"],["마법의 기적","57 마법의 기적.mp3"],["마법의 성","58 마법의 성.mp3"]]
   },
   kiwoom: {
     name: "키움 히어로즈",
-    sub: "선수 응원가 28곡 · 팀 응원가 20곡 · 라인업 모드",
-    dir: "audio/kiwoom",
     badge: "🦸",
-    intro: { title: "라인업송", file: "02_라인업송.mp3" },
-    players: [
-      ["서건창","03_서건창 등장곡+응원가.mp3"],["추재현","06_추재현 등장곡.mp3"],
-      ["데이비슨","08_데이비슨 등장곡+응원가.mp3"],["히우라","09_히우라 등장곡+응원가.mp3"],
-      ["박찬혁","10_박찬혁 등장곡+응원가.mp3"],["김웅빈","11_김웅빈 등장곡+응원가.mp3"],
-      ["김건희","12_김건희 등장곡+응원가.mp3"],["여동욱","13_여동욱 등장곡+응원가.mp3"],
-      ["권혁빈","14_권혁빈 등장곡.mp3"],["김태진","16_김태진 등장곡+응원가.mp3"],
-      ["이주형","17_이주형 등장곡+응원가.mp3"],["박한결","18_박한결 등장곡.mp3"],
-      ["오선진","20_오선진 등장곡+응원가.mp3"],["안치홍","21_안치홍 등장곡+응원가.mp3"],
-      ["임병욱","22_임병욱 등장곡+응원가.mp3"],["주성원","23_주성원 등장곡+응원가.mp3"],
-      ["임지열","24_임지열 등장곡+응원가.mp3"],["김재현","25_김재현 등장곡+응원가.mp3"],
-      ["원성준","26_원성준 등장곡+응원가.mp3"],["이형종","27_이형종 등장곡+응원가.mp3"],
-      ["김동헌","28_김동헌 등장곡+응원가.mp3"],["최주환","29_최주환 등장곡+응원가.mp3"],
-      ["박주홍","30_박주홍 등장곡+응원가.mp3"],["송지후","31_송지후 등장곡.mp3"],
-      ["박수종","33_박수종 등장곡+응원가.mp3"],["어준서","34_어준서 등장곡+응원가.mp3"],
-      ["전태현","35_전태현 등장곡+응원가.mp3"]
-    ],
-    teamSongs: [
-      ["경기 개시 음악","01_경기 개시 음악.mp3"],["풀카운트 송","04_풀카운트 송.mp3"],
-      ["볼넷 송","05_볼넷 송.mp3"],["New heroes come here","36_New heroes come here.mp3"],
-      ["꿈이여 하나가 되자","37_꿈이여 하나가 되자.mp3"],["기가 높여라","38_기가 높여라.mp3"],
-      ["히어로즈 만만세","41_히어로즈 만만세.mp3"],["오 키움, 키움 히어로즈","42_오 키움, 키움 히어로즈.mp3"],
-      ["사랑한다 키움","43_사랑한다 키움.mp3"],["영웅출정가","45_영웅출정가.mp3"],
-      ["외쳐라 히어로즈","47_외쳐라 히어로즈.mp3"],["승리를 위하여","48_승리를 위하여.mp3"],
-      ["히어로즈의 노래","49_히어로즈의 노래.mp3"],["하늘 끝까지","50_하늘 끝까지.mp3"],
-      ["나의 사랑 히어로","52_나의 사랑 히어로.mp3"]
-    ]
+    sub: "선수 응원가 27곡 · 팀 응원가 24곡 · 라인업 모드",
+    dir: "audio/kiwoom",
+    intro: { title: "라인업송", file: "01 라인업송.mp3" },
+    players: [["서건창","02 서건창.mp3"],["추재현","03 추재현.mp3"],["데이비슨","04 데이비슨.mp3"],["히우라","05 히우라.mp3"],["박찬혁","06 박찬혁.mp3"],["김웅빈","07 김웅빈.mp3"],["김건희","08 김건희.mp3"],["여동욱","09 여동욱.mp3"],["권혁빈","10 권혁빈.mp3"],["김태진","11 김태진.mp3"],["이주형","12 이주형.mp3"],["박한결","13 박한결.mp3"],["오선진","14 오선진.mp3"],["안치홍","15 안치홍.mp3"],["임병욱","16 임병욱.mp3"],["주성원","17 주성원.mp3"],["임지열","18 임지열.mp3"],["김재현","19 김재현.mp3"],["원성준","20 원성준.mp3"],["이형종","21 이형종.mp3"],["김동헌","22 김동헌.mp3"],["최주환","23 최주환.mp3"],["박주홍","24 박주홍.mp3"],["송지후","25 송지후.mp3"],["박수종","26 박수종.mp3"],["어준서","27 어준서.mp3"],["전태현","28 전태현.mp3"]],
+    teamSongs: [["경기 개시 음악","29 경기 개시 음악.mp3"],["풀카운트 송","30 풀카운트 송.mp3"],["볼넷 송","31 볼넷 송.mp3"],["공통 안타 송","32 공통 안타 송.mp3"],["공통 안타 송","33 공통 안타 송.mp3"],["공통 안타 송","34 공통 안타 송.mp3"],["공통 안타 송","35 공통 안타 송.mp3"],["New heroes come here","36 New heroes come here.mp3"],["꿈이여 하나가 되자","37 꿈이여 하나가 되자.mp3"],["기를 높여라","38 기를 높여라.mp3"],["승리가","39 승리가.mp3"],["우리가 승리한다","40 우리가 승리한다.mp3"],["히어로즈 만만세","41 히어로즈 만만세.mp3"],["오 키움, 키움 히어로즈","42 오 키움, 키움 히어로즈.mp3"],["사랑한다 키움","43 사랑한다 키움.mp3"],["Let's go together hero","44 Let's go together hero.mp3"],["영웅출정가","45 영웅출정가.mp3"],["히어로","46 히어로.mp3"],["외쳐라 히어로즈","47 외쳐라 히어로즈.mp3"],["승리를 위하여","48 승리를 위하여.mp3"],["히어로즈의 노래","49 히어로즈의 노래.mp3"],["하늘 끝까지","50 하늘 끝까지.mp3"],["승리를 위한 함성","51 승리를 위한 함성.mp3"],["나의 사랑 히어로","52 나의 사랑 히어로.mp3"]]
   }
 };
 
@@ -538,10 +377,11 @@ function buildSongs(t){
 }
 
 const audio = document.getElementById("audio");
-let cur = null, songs = [], queue = [], qi = -1, lineupCtx = null;
+let cur = null, songs = [], queue = [], qi = -1, lineupCtx = null, playLabel = null;
 
 const viewList = document.getElementById("viewList");
 const viewLineup = document.getElementById("viewLineup");
+const viewDream = document.getElementById("viewDream");
 const slotsEl = document.getElementById("slots");
 
 function rowHTML(tr){
@@ -577,43 +417,93 @@ function buildSlots(){
   document.getElementById("introCheck").classList.toggle("hidden", !cur.intro);
 }
 
+// ── 드림/나눔 올스타 모드 ──
+// KBO 올스타전 진영: 드림(두산·KT·롯데·삼성·SSG) / 나눔(KIA·키움·NC·LG·한화)
+const ALLS = {
+  dream: [["doosan","두산"],["kt","KT"],["lotte","롯데"],["samsung","삼성"],["ssg","SSG"]],
+  nanum: [["kia","KIA"],["kiwoom","키움"],["nc","NC"],["lg","LG"],["hanwha","한화"]]
+};
+const dreamPools = { dream: [], nanum: [] };
+function poolPlayers(side){
+  const arr = [];
+  ALLS[side].forEach(([key, short])=>{
+    const t = TEAMS[key];
+    if(!t) return;
+    t.players.forEach((p,i)=>arr.push({ key, idx:i, short, title:p[0], path:t.dir+"/"+p[1] }));
+  });
+  return arr;
+}
+function buildDreamSlots(){
+  dreamPools.dream = poolPlayers("dream");
+  dreamPools.nanum = poolPlayers("nanum");
+  [["dream","dslots","d"],["nanum","nslots","n"]].forEach(([side, elId, pre])=>{
+    const pool = dreamPools[side];
+    let h = "";
+    for(let i=0;i<9;i++){
+      h += `<div class="slot" id="${pre}slot${i}"><div class="ord">${i+1}</div>`
+        + `<select id="${pre}sel${i}"><option value="">— ${i+1}번 타자 선택 —</option>`
+        + pool.map((p,j)=>`<option value="${j}">${p.short} ${p.title}</option>`).join("")
+        + `</select></div>`;
+    }
+    document.getElementById(elId).innerHTML = h;
+  });
+}
+function enterDream(){
+  cur = null; songs = [];
+  const hdr = document.getElementById("hdr");
+  hdr.className = "dream";
+  const badge = document.getElementById("hdrBadge");
+  badge.classList.remove("ic"); badge.innerHTML = "🌟";
+  document.getElementById("hdrTitle").textContent = "드림 vs 나눔 올스타전";
+  document.getElementById("hdrSub").textContent = "드림(두산·KT·롯데·삼성·SSG) · 나눔(KIA·키움·NC·LG·한화)";
+  buildDreamSlots();
+  document.getElementById("viewHome").classList.add("hidden");
+  document.getElementById("tabBar").classList.remove("hidden");
+  tabList.classList.add("hidden"); tabLineup.classList.add("hidden"); tabDream.classList.remove("hidden");
+  switchTab("dream");
+}
+
 function selectTeam(key){
   cur = TEAMS[key];
   songs = buildSongs(cur);
   const hdr = document.getElementById("hdr");
   hdr.className = key;
   const badge = document.getElementById("hdrBadge");
-  if(cur.badge === "ic"){ badge.classList.add("ic"); badge.innerHTML = IC.baseball; }
-  else { badge.classList.remove("ic"); badge.innerHTML = cur.badge; }
+  if(cur.badge){ badge.classList.remove("ic"); badge.innerHTML = cur.badge; }
+  else { badge.classList.add("ic"); badge.innerHTML = IC.baseball; }
   document.getElementById("hdrTitle").textContent = cur.name + " 응원가";
   document.getElementById("hdrSub").textContent = cur.sub;
   buildList();
   buildSlots();
   document.getElementById("viewHome").classList.add("hidden");
   document.getElementById("tabBar").classList.remove("hidden");
-  switchTab(true);
+  tabList.classList.remove("hidden"); tabLineup.classList.remove("hidden"); tabDream.classList.add("hidden");
+  switchTab("list");
 }
 function goHome(){
   document.getElementById("viewHome").classList.remove("hidden");
   document.getElementById("tabBar").classList.add("hidden");
   viewList.classList.add("hidden");
   viewLineup.classList.add("hidden");
+  viewDream.classList.add("hidden");
   const hdr = document.getElementById("hdr");
   hdr.className = "";
   const badge = document.getElementById("hdrBadge");
   badge.classList.add("ic");
   badge.innerHTML = IC.baseball;
   document.getElementById("hdrTitle").textContent = "KBO 응원가 플레이어";
-  document.getElementById("hdrSub").textContent = "전 구단 응원가 · 라인업 모드";
+  document.getElementById("hdrSub").textContent = "삼성 라이온즈 · 롯데 자이언츠 · KIA 타이거즈 · 두산 베어스 · LG 트윈스 · NC 다이노스 · SSG 랜더스 · 한화 이글스 · KT 위즈 · 키움 히어로즈";
 }
 document.getElementById("viewHome").addEventListener("click", e=>{
   const card = e.target.closest(".teamcard");
-  if(card) selectTeam(card.dataset.team);
+  if(!card) return;
+  if(card.dataset.mode==="dream") enterDream();
+  else selectTeam(card.dataset.team);
 });
 document.getElementById("btnHome").addEventListener("click", goHome);
 
-function setQueue(list, start, ctx){
-  queue = list; qi = start; lineupCtx = ctx || null;
+function setQueue(list, start, ctx, label){
+  queue = list; qi = start; lineupCtx = ctx || null; playLabel = label || null;
   load(qi, true);
 }
 function load(i, autoplay){
@@ -622,13 +512,13 @@ function load(i, autoplay){
   const tr = queue[qi];
   audio.src = tr.path.split("/").map(encodeURIComponent).join("/");
   document.getElementById("npTitle").textContent = tr.title;
-  const teamName = cur ? cur.name : "KBO";
+  const teamName = playLabel || (cur ? cur.name : "KBO");
   document.getElementById("npSub").textContent =
     queue.length>1 ? `${qi+1} / ${queue.length} · ${teamName} 응원가` : `${teamName} 응원가`;
   document.querySelectorAll(".row").forEach(r=>r.classList.toggle("playing", r.dataset.path===tr.path));
   document.querySelectorAll(".slot").forEach(s=>s.classList.remove("now"));
-  if(lineupCtx && lineupCtx[qi]>=0){
-    const s = document.getElementById("slot"+lineupCtx[qi]);
+  if(lineupCtx && lineupCtx[qi]){
+    const s = document.getElementById(lineupCtx[qi]);
     if(s) s.classList.add("now");
   }
   if("mediaSession" in navigator){
@@ -675,17 +565,17 @@ viewList.addEventListener("click", e=>{
 
 document.getElementById("btnPlayLineup").addEventListener("click", ()=>{
   const picks = [], ctx = [];
-  if(cur.intro && document.getElementById("withIntro").checked){ picks.push(songs[0]); ctx.push(-1); }
+  if(cur.intro && document.getElementById("withIntro").checked){ picks.push(songs[0]); ctx.push(null); }
   for(let i=0;i<9;i++){
     const v = document.getElementById("sel"+i).value;
     if(v!==""){
       const title = cur.players[+v][0];
       const s = songs.find(x=>x.cat==="player" && x.title===title);
-      if(s){ picks.push(s); ctx.push(i); }
+      if(s){ picks.push(s); ctx.push("slot"+i); }
     }
   }
-  if(ctx.filter(c=>c>=0).length===0){ alert("타자를 한 명 이상 골라줘!"); return; }
-  switchTab(false);
+  if(!ctx.some(c=>c)){ alert("타자를 한 명 이상 골라줘!"); return; }
+  switchTab("lineup");
   setQueue(picks, 0, ctx);
 });
 document.getElementById("btnRandom").addEventListener("click", ()=>{
@@ -698,14 +588,48 @@ document.getElementById("btnClear").addEventListener("click", ()=>{
   for(let s=0;s<9;s++) document.getElementById("sel"+s).value = "";
 });
 
-const tabList = document.getElementById("tabList"), tabLineup = document.getElementById("tabLineup");
-function switchTab(list){
-  tabList.classList.toggle("on", list); tabLineup.classList.toggle("on", !list);
-  viewList.classList.toggle("hidden", !list);
-  viewLineup.classList.toggle("hidden", list);
+document.getElementById("btnPlayDream").addEventListener("click", ()=>{
+  const picks = [], ctx = [];
+  for(let i=0;i<9;i++){
+    for(const [side, pre] of [["dream","d"],["nanum","n"]]){
+      const v = document.getElementById(pre+"sel"+i).value;
+      if(v!==""){
+        const p = dreamPools[side][+v];
+        picks.push({ title: `${p.title} (${p.short})`, path: p.path, cat: "player" });
+        ctx.push(pre+"slot"+i);
+      }
+    }
+  }
+  if(!picks.length){ alert("타자를 한 명 이상 골라줘!"); return; }
+  setQueue(picks, 0, ctx, "드림/나눔 올스타");
+});
+function shuffleIdx(n){
+  const a = [...Array(n).keys()];
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
 }
-tabList.addEventListener("click", ()=>switchTab(true));
-tabLineup.addEventListener("click", ()=>switchTab(false));
+function randomDreamSide(side, pre){
+  const idx = shuffleIdx(dreamPools[side].length);
+  for(let s=0;s<9;s++) document.getElementById(pre+"sel"+s).value = idx[s];
+}
+document.getElementById("btnRandomD").addEventListener("click", ()=>randomDreamSide("dream","d"));
+document.getElementById("btnRandomN").addEventListener("click", ()=>randomDreamSide("nanum","n"));
+document.getElementById("btnClearD").addEventListener("click", ()=>{ for(let s=0;s<9;s++) document.getElementById("dsel"+s).value=""; });
+document.getElementById("btnClearN").addEventListener("click", ()=>{ for(let s=0;s<9;s++) document.getElementById("nsel"+s).value=""; });
+
+const tabList = document.getElementById("tabList"), tabLineup = document.getElementById("tabLineup"),
+      tabDream = document.getElementById("tabDream");
+function switchTab(name){
+  tabList.classList.toggle("on", name==="list");
+  tabLineup.classList.toggle("on", name==="lineup");
+  tabDream.classList.toggle("on", name==="dream");
+  viewList.classList.toggle("hidden", name!=="list");
+  viewLineup.classList.toggle("hidden", name!=="lineup");
+  viewDream.classList.toggle("hidden", name!=="dream");
+}
+tabList.addEventListener("click", ()=>switchTab("list"));
+tabLineup.addEventListener("click", ()=>switchTab("lineup"));
+tabDream.addEventListener("click", ()=>switchTab("dream"));
 </script>
 </body>
 </html>

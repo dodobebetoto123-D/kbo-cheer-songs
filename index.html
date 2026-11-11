@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="KBO 10개 구단 응원가를 한곳에서 듣는 웹 플레이어. 선수별·팀별 응원가, 라인업 모드, 드림/나눔 올스타 모드 지원.">
+<meta name="theme-color" content="#0b1220">
 <title>KBO 응원가 플레이어</title>
 <style>
   :root{
@@ -87,14 +88,41 @@
   #npTitle{font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   #npSub{font-size:12px;color:var(--sub);margin-top:2px}
   .prog{display:flex;align-items:center;gap:8px;margin-top:9px;font-size:11px;color:var(--sub)}
-  #bar{flex:1;height:6px;background:#26355a;border-radius:99px;cursor:pointer;position:relative}
-  #fill{height:100%;width:0%;background:var(--sky);border-radius:99px}
+  #bar{flex:1;min-width:0;height:24px;accent-color:var(--sky);cursor:pointer}
   .ctrls{display:flex;align-items:center;justify-content:center;gap:26px;margin-top:8px}
   .cbtn{background:none;border:0;color:#fff;cursor:pointer;padding:6px;display:flex;align-items:center;justify-content:center}
   .cbtn .ic{width:26px;height:26px}
   #playBtn{background:var(--blue2);width:56px;height:56px;border-radius:50%}
   #playBtn .ic{width:26px;height:26px}
   .hidden{display:none}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+  .team-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:20px}
+  .team-grid .teamcard{margin:0;min-height:126px;padding:20px 8px 16px;justify-content:center}
+  .team-grid .tc-name{font-size:16px}
+  .team-grid .tc-sub{font-size:11px;line-height:1.5;padding:0 6px}
+  @media(min-width:600px){.team-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .row{width:100%;font:inherit;color:inherit;text-align:left}
+  .row:focus-visible,.teamcard:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  .search-wrap{margin:10px 0 12px}
+  #songSearch{display:block;width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:12px;color:var(--text);background:var(--card);font:inherit;font-size:15px}
+  #searchCount{margin:8px 4px 0;color:var(--sub);font-size:12px}
+  .np-head{display:flex;gap:10px;align-items:center;justify-content:space-between}
+  .np-head>div{min-width:0;flex:1}
+  .lyrics-toggle{background:var(--card2);border:1px solid var(--line);color:var(--text);border-radius:10px;font:inherit;font-size:13px;font-weight:700;padding:10px 12px;cursor:pointer;flex:none}
+  .lyrics-toggle:disabled{opacity:.45;cursor:not-allowed}
+  #lyricsDialog{position:fixed;inset:0;margin:auto;width:min(92vw,520px);max-height:min(85dvh,720px);border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--text);padding:22px;box-shadow:0 20px 60px #0009}
+  #lyricsDialog::backdrop{background:rgba(0,0,0,.75)}
+  .lyrics-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .lyrics-head h2{font-size:20px}
+  #lyricsSong{margin:10px 0;color:var(--sky);font-weight:700}
+  #lyricsInput{display:block;width:100%;min-height:200px;height:min(42dvh,340px);resize:vertical;border-radius:12px;padding:14px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit;font-size:15px;line-height:1.7}
+  .lyrics-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+  .lyrics-actions button{padding:11px 15px;border:1px solid var(--line);border-radius:10px;background:var(--card2);color:var(--text);font:inherit;cursor:pointer}
+  .lyrics-actions #lyricsSave{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+  #lyricsStatus{min-height:1.5em;font-size:13px;color:var(--sky);margin-top:7px}
+  .muted-note{font-size:12px;line-height:1.5;color:var(--sub);margin:8px 0}
+  @media(prefers-reduced-motion:reduce){.eq i{animation:none;height:9px}}
 </style>
 </head>
 <body>
@@ -114,6 +142,7 @@
 <main>
   <section id="viewHome">
     <p class="hint center">어느 팀 응원가를 들을래?</p>
+    <div class="team-grid">
     <button class="teamcard samsung" data-team="samsung">
       <span class="tc-badge">🦁</span>
       <span class="tc-name">삼성 라이온즈</span>
@@ -169,13 +198,22 @@
       <span class="tc-name">드림 vs 나눔 올스타</span>
       <span class="tc-sub">드림 5팀 · 나눔 5팀 올스타 라인업</span>
     </button>
+    </div>
   </section>
 
-  <section id="viewList" class="hidden"></section>
+  <section id="viewList" class="hidden">
+    <div class="search-wrap">
+      <label for="songSearch" class="sr-only">선수 및 응원가 검색</label>
+      <input id="songSearch" type="search" placeholder="선수·응원가 검색" autocomplete="off">
+      <p id="searchCount" aria-live="polite"></p>
+    </div>
+    <div id="viewListResults"></div>
+  </section>
 
   <section id="viewLineup" class="hidden">
     <p class="hint">1번부터 9번까지 타순에 선수를 넣어봐. 재생하면 짠 순서대로 쭉 나와.</p>
     <div id="slots"></div>
+    <p id="lineupNotice" class="muted-note" role="status" aria-live="polite"></p>
     <label class="check" id="introCheck"><input type="checkbox" id="withIntro" checked> 라인업송 먼저 재생하기</label>
     <div class="btnrow">
       <button class="btn sub" id="btnRandom"><span class="ic" data-ic="shuffle"></span>랜덤</button>
@@ -194,6 +232,7 @@
     </div>
     <div class="group-head"><h2>💙 나눔 올스타 <span class="sub">KIA·키움·NC·LG·한화</span></h2></div>
     <div id="nslots"></div>
+    <p id="dreamNotice" class="muted-note" role="status" aria-live="polite"></p>
     <div class="btnrow">
       <button class="btn sub" id="btnRandomN"><span class="ic" data-ic="shuffle"></span>나눔 랜덤</button>
       <button class="btn sub" id="btnClearN"><span class="ic" data-ic="reset"></span>나눔 초기화</button>
@@ -213,21 +252,41 @@
 
 <div id="player">
   <div id="np">
-    <div id="npTitle">팀을 고르고 곡을 눌러봐</div>
-    <div id="npSub">KBO 응원가 플레이어</div>
+    <div class="np-head">
+      <div>
+        <div id="npTitle">팀을 고르고 곡을 눌러봐</div>
+        <div id="npSub">KBO 응원가 플레이어</div>
+      </div>
+      <button type="button" id="lyricsBtn" class="lyrics-toggle" disabled>가사 보기</button>
+    </div>
     <div class="prog">
       <span id="cur">0:00</span>
-      <div id="bar"><div id="fill"></div></div>
+      <input type="range" id="bar" min="0" max="1000" value="0" step="1" aria-label="재생 위치">
       <span id="dur">0:00</span>
     </div>
     <div class="ctrls">
-      <button class="cbtn" id="prevBtn"><span class="ic" data-ic="prev"></span></button>
-      <button class="cbtn" id="playBtn"><span class="ic" data-ic="play"></span></button>
-      <button class="cbtn" id="nextBtn"><span class="ic" data-ic="next"></span></button>
+      <button type="button" class="cbtn" id="prevBtn" aria-label="이전 곡"><span class="ic" data-ic="prev"></span></button>
+      <button type="button" class="cbtn" id="playBtn" aria-label="재생"><span class="ic" data-ic="play"></span></button>
+      <button type="button" class="cbtn" id="nextBtn" aria-label="다음 곡"><span class="ic" data-ic="next"></span></button>
     </div>
   </div>
 </div>
 
+<dialog id="lyricsDialog" aria-labelledby="lyricsHeading">
+  <div class="lyrics-head">
+    <h2 id="lyricsHeading">응원가 가사</h2>
+    <button type="button" id="lyricsClose" class="lyrics-toggle" aria-label="가사 창 닫기">닫기</button>
+  </div>
+  <p id="lyricsSong"></p>
+  <p class="muted-note">가사는 저작권 보호 대상입니다. 직접 입력한 텍스트만 이 브라우저에 저장되며 다른 이용자에게 공유되지 않습니다.</p>
+  <label class="sr-only" for="lyricsInput">이 곡의 가사</label>
+  <textarea id="lyricsInput" placeholder="이 곡의 가사를 직접 입력하세요." spellcheck="false"></textarea>
+  <div class="lyrics-actions">
+    <button type="button" id="lyricsDelete">삭제</button>
+    <button type="button" id="lyricsSave">가사 저장</button>
+  </div>
+  <p id="lyricsStatus" role="status" aria-live="polite"></p>
+</dialog>
 <audio id="audio" preload="metadata"></audio>
 
 <script>

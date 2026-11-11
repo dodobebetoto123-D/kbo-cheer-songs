@@ -441,15 +441,17 @@ const audio = document.getElementById("audio");
 let cur = null, songs = [], queue = [], qi = -1, lineupCtx = null, playLabel = null;
 
 const viewList = document.getElementById("viewList");
+const viewListResults = document.getElementById("viewListResults");
+const songSearch = document.getElementById("songSearch");
 const viewLineup = document.getElementById("viewLineup");
 const viewDream = document.getElementById("viewDream");
 const slotsEl = document.getElementById("slots");
 
 function rowHTML(tr){
   const idx = songs.indexOf(tr);
-  return `<div class="row" data-path="${tr.path}">
+  return `<button type="button" class="row" data-path="${tr.path}" aria-label="${tr.title} 재생">
     <div class="no">${idx+1}</div><div class="t">${tr.title}</div>
-    <div class="eq"><i></i><i></i><i></i></div></div>`;
+    <div class="eq" aria-hidden="true"><i></i><i></i><i></i></div></button>`;
 }
 function group(icon, title, sub, items, cat){
   return `<div class="group-head"><h2><span class="ic">${icon}</span>${title}<span class="sub">${sub}</span></h2>
@@ -457,14 +459,27 @@ function group(icon, title, sub, items, cat){
     <div>${items.map(rowHTML).join("")}</div>`;
 }
 function buildList(){
-  const intro = songs.filter(s=>s.cat==="intro");
-  const players = songs.filter(s=>s.cat==="player");
-  const team = songs.filter(s=>s.cat==="team");
+  const term = songSearch.value.trim().toLocaleLowerCase("ko");
+  const filtered = songs.filter(s=>s.title.toLocaleLowerCase("ko").includes(term));
+  const intro = filtered.filter(s=>s.cat==="intro");
+  const players = filtered.filter(s=>s.cat==="player");
+  const team = filtered.filter(s=>s.cat==="team");
   let h = "";
   if(intro.length) h += group(IC.mic, "라인업송", "경기 시작!", intro, "intro");
-  h += group(IC.users, "선수 응원가", players.length + "명", players, "player");
+  if(players.length) h += group(IC.users, "선수 응원가", players.length + "명", players, "player");
   if(team.length) h += group(IC.flag, "팀 응원가", team.length + "곡", team, "team");
-  viewList.innerHTML = h;
+  viewListResults.innerHTML = h || '<p class="hint">검색 결과가 없습니다.</p>';
+  document.getElementById("searchCount").textContent = term ? filtered.length + "곡 검색됨" : songs.length + "곡";
+  updatePlayingRows();
+}
+songSearch.addEventListener("input", buildList);
+function updatePlayingRows(){
+  const active = queue[qi];
+  document.querySelectorAll(".row").forEach(r=>{
+    const isCurrent = !!active && r.dataset.path===active.path;
+    r.classList.toggle("playing",isCurrent);
+    r.setAttribute("aria-current",isCurrent?"true":"false");
+  });
 }
 function buildSlots(){
   let h = "";
@@ -510,6 +525,7 @@ function buildDreamSlots(){
   });
 }
 function enterDream(){
+  resetPlayback();
   cur = null; songs = [];
   const hdr = document.getElementById("hdr");
   hdr.className = "dream";
@@ -518,6 +534,7 @@ function enterDream(){
   document.getElementById("hdrTitle").textContent = "드림 vs 나눔 올스타전";
   document.getElementById("hdrSub").textContent = "드림(두산·KT·롯데·삼성·SSG) · 나눔(KIA·키움·NC·LG·한화)";
   buildDreamSlots();
+  restoreDreamLineup();
   document.getElementById("viewHome").classList.add("hidden");
   document.getElementById("tabBar").classList.remove("hidden");
   tabList.classList.add("hidden"); tabLineup.classList.add("hidden"); tabDream.classList.remove("hidden");
@@ -525,6 +542,7 @@ function enterDream(){
 }
 
 function selectTeam(key){
+  resetPlayback();
   cur = TEAMS[key];
   songs = buildSongs(cur);
   const hdr = document.getElementById("hdr");
@@ -534,8 +552,10 @@ function selectTeam(key){
   else { badge.classList.add("ic"); badge.innerHTML = IC.baseball; }
   document.getElementById("hdrTitle").textContent = cur.name + " 응원가";
   document.getElementById("hdrSub").textContent = cur.sub;
+  songSearch.value = "";
   buildList();
   buildSlots();
+  restoreLineup(key);
   document.getElementById("viewHome").classList.add("hidden");
   document.getElementById("tabBar").classList.remove("hidden");
   tabList.classList.remove("hidden"); tabLineup.classList.remove("hidden"); tabDream.classList.add("hidden");
@@ -563,7 +583,20 @@ document.getElementById("viewHome").addEventListener("click", e=>{
 });
 document.getElementById("btnHome").addEventListener("click", goHome);
 
+function resetPlayback(){
+  audio.pause(); audio.removeAttribute("src"); audio.load();
+  queue = []; qi = -1; lineupCtx = null; playLabel = null;
+  document.getElementById("npTitle").textContent = "곡을 선택해 주세요";
+  document.getElementById("npSub").textContent = "KBO 응원가 플레이어";
+  document.getElementById("bar").value = 0;
+  document.getElementById("cur").textContent = "0:00";
+  document.getElementById("dur").textContent = "0:00";
+  document.getElementById("lyricsBtn").disabled = true;
+  setPlayIcon();
+  updatePlayingRows();
+}
 function setQueue(list, start, ctx, label){
+  if(!list.length) return;
   queue = list; qi = start; lineupCtx = ctx || null; playLabel = label || null;
   load(qi, true);
 }
@@ -580,7 +613,8 @@ function load(i, autoplay){
   const teamName = playLabel || (cur ? cur.name : "KBO");
   document.getElementById("npSub").textContent =
     queue.length>1 ? `${qi+1} / ${queue.length} · ${teamName} 응원가` : `${teamName} 응원가`;
-  document.querySelectorAll(".row").forEach(r=>r.classList.toggle("playing", r.dataset.path===tr.path));
+  updatePlayingRows();
+  document.getElementById("lyricsBtn").disabled = false;
   document.querySelectorAll(".slot").forEach(s=>s.classList.remove("now"));
   if(lineupCtx && lineupCtx[qi]){
     const s = document.getElementById(lineupCtx[qi]);
@@ -596,21 +630,20 @@ function showAudioError(error){
   document.getElementById("npSub").textContent = "오디오 파일을 불러오지 못했어요. 페이지를 새로고침해 주세요.";
 }
 const playBtn = document.getElementById("playBtn");
-function setPlayIcon(){ playBtn.innerHTML = `<span class="ic">${audio.paused? IC.play : IC.pause}</span>`; }
+function setPlayIcon(){ playBtn.innerHTML = `<span class="ic">${audio.paused? IC.play : IC.pause}</span>`; playBtn.setAttribute("aria-label",audio.paused?"재생":"일시정지"); document.querySelectorAll(".row .eq").forEach(el=>el.style.visibility=audio.paused?"hidden":"visible"); }
 audio.addEventListener("play", setPlayIcon);
 audio.addEventListener("pause", setPlayIcon);
-audio.addEventListener("error", ()=>showAudioError(audio.error));
+audio.addEventListener("error", ()=>{ if(audio.getAttribute("src")) showAudioError(audio.error); });
 audio.addEventListener("ended", ()=>{ if(qi<queue.length-1) load(qi+1, true); });
 audio.addEventListener("timeupdate", ()=>{
   const c = audio.currentTime||0, d = audio.duration||0;
-  document.getElementById("fill").style.width = d? (c/d*100)+"%" : "0%";
+  document.getElementById("bar").value = Number.isFinite(d) && d>0 ? Math.round(c/d*1000) : 0;
   document.getElementById("cur").textContent = fmt(c);
   document.getElementById("dur").textContent = fmt(d);
 });
 function fmt(s){ if(!isFinite(s)) s=0; s=Math.floor(s); return Math.floor(s/60)+":"+String(s%60).padStart(2,"0"); }
-document.getElementById("bar").addEventListener("click", e=>{
-  const r = e.currentTarget.getBoundingClientRect();
-  if(audio.duration) audio.currentTime = audio.duration*(e.clientX-r.left)/r.width;
+document.getElementById("bar").addEventListener("input", e=>{
+  if(Number.isFinite(audio.duration) && audio.duration>0) audio.currentTime = audio.duration*Number(e.currentTarget.value)/1000;
 });
 playBtn.addEventListener("click", ()=>{
   if(!audio.src){ if(songs.length) setQueue(songs,0); return; }
@@ -623,7 +656,7 @@ viewList.addEventListener("click", e=>{
   const pa = e.target.closest(".playall");
   if(pa){
     const cat = pa.dataset.cat;
-    const items = cat==="intro" ? songs : songs.filter(s=>s.cat===cat);
+    const items = songs.filter(s=>s.cat===cat && s.title.toLocaleLowerCase("ko").includes(songSearch.value.trim().toLocaleLowerCase("ko")));
     setQueue(items, 0); return;
   }
   const row = e.target.closest(".row");
@@ -653,9 +686,11 @@ document.getElementById("btnRandom").addEventListener("click", ()=>{
   const idx = cur.players.map((_,i)=>i);
   for(let i=idx.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [idx[i],idx[j]]=[idx[j],idx[i]]; }
   for(let s=0;s<9;s++) document.getElementById("sel"+s).value = idx[s];
+  persistLineup();
 });
 document.getElementById("btnClear").addEventListener("click", ()=>{
   for(let s=0;s<9;s++) document.getElementById("sel"+s).value = "";
+  persistLineup();
 });
 
 document.getElementById("btnPlayDream").addEventListener("click", ()=>{
@@ -681,11 +716,100 @@ function shuffleIdx(n){
 function randomDreamSide(side, pre){
   const idx = shuffleIdx(dreamPools[side].length);
   for(let s=0;s<9;s++) document.getElementById(pre+"sel"+s).value = idx[s];
+  persistDreamLineup();
 }
 document.getElementById("btnRandomD").addEventListener("click", ()=>randomDreamSide("dream","d"));
 document.getElementById("btnRandomN").addEventListener("click", ()=>randomDreamSide("nanum","n"));
-document.getElementById("btnClearD").addEventListener("click", ()=>{ for(let s=0;s<9;s++) document.getElementById("dsel"+s).value=""; });
-document.getElementById("btnClearN").addEventListener("click", ()=>{ for(let s=0;s<9;s++) document.getElementById("nsel"+s).value=""; });
+document.getElementById("btnClearD").addEventListener("click", ()=>{ for(let s=0;s<9;s++) document.getElementById("dsel"+s).value=""; persistDreamLineup(); });
+document.getElementById("btnClearN").addEventListener("click", ()=>{ for(let s=0;s<9;s++) document.getElementById("nsel"+s).value=""; persistDreamLineup(); });
+
+
+const KEY_PREFIX = "kbo-cheer-v2:";
+function storageGet(key){
+  try { return localStorage.getItem(KEY_PREFIX + key); } catch(e) { return null; }
+}
+function storageSet(key,value){
+  try { localStorage.setItem(KEY_PREFIX + key, value); return true; } catch(e) { return false; }
+}
+function storageDelete(key){
+  try { localStorage.removeItem(KEY_PREFIX + key); return true; } catch(e) { return false; }
+}
+function readSelection(prefix){
+  return Array.from({length:9},(_,i)=>document.getElementById(prefix+"sel"+i).value);
+}
+function uniqueSelection(prefix){
+  const seen = new Set(); let duplicate=false;
+  for(let i=0;i<9;i++){
+    const el = document.getElementById(prefix+"sel"+i);
+    if(el.value==="") continue;
+    if(seen.has(el.value)){el.value="";duplicate=true;}
+    else seen.add(el.value);
+  }
+  return duplicate;
+}
+function persistLineup(){
+  if(!cur) return;
+  const duplicate=uniqueSelection("");
+  const ok=storageSet("lineup:"+cur.name,JSON.stringify(readSelection("")));
+  document.getElementById("lineupNotice").textContent=duplicate?"중복된 선수 선택을 해제했습니다.":ok?"라인업이 이 브라우저에 자동 저장됩니다.":"저장 공간이 제한되어 라인업을 저장하지 못했습니다.";
+}
+function restoreLineup(key){
+  let values=[];
+  try {values=JSON.parse(storageGet("lineup:"+cur.name)||"[]");}catch(e){}
+  if(Array.isArray(values)){
+    values.slice(0,9).forEach((v,i)=>{
+      const sel=document.getElementById("sel"+i);
+      if([...sel.options].some(o=>o.value===String(v))) sel.value=String(v);
+    });
+  }
+  uniqueSelection("");
+  document.getElementById("lineupNotice").textContent="라인업 선택은 이 브라우저에 자동 저장됩니다.";
+}
+slotsEl.addEventListener("change",e=>{if(e.target.matches("select"))persistLineup();});
+function persistDreamLineup(){
+  const d=uniqueSelection("d"),n=uniqueSelection("n");
+  const ok=storageSet("dream-lineup",JSON.stringify({d:readSelection("d"),n:readSelection("n")}));
+  document.getElementById("dreamNotice").textContent=d||n?"중복된 선수 선택을 해제했습니다.":ok?"올스타 라인업이 이 브라우저에 자동 저장됩니다.":"저장 공간이 제한되어 저장하지 못했습니다.";
+}
+function restoreDreamLineup(){
+  let saved={};
+  try{saved=JSON.parse(storageGet("dream-lineup")||"{}");}catch(e){}
+  for(const pre of ["d","n"]){
+    const values=saved[pre];
+    if(Array.isArray(values)) values.slice(0,9).forEach((v,i)=>{
+      const sel=document.getElementById(pre+"sel"+i);
+      if([...sel.options].some(o=>o.value===String(v)))sel.value=String(v);
+    });
+    uniqueSelection(pre);
+  }
+  document.getElementById("dreamNotice").textContent="올스타 라인업은 이 브라우저에 자동 저장됩니다.";
+}
+viewDream.addEventListener("change",e=>{if(e.target.matches("select"))persistDreamLineup();});
+const lyricsBtn=document.getElementById("lyricsBtn");
+const lyricsDialog=document.getElementById("lyricsDialog");
+const lyricsInput=document.getElementById("lyricsInput");
+const lyricsStatus=document.getElementById("lyricsStatus");
+let lyricsPath=null;
+lyricsBtn.addEventListener("click",()=>{
+  const track=queue[qi];
+  if(!track)return;
+  lyricsPath=track.path;
+  document.getElementById("lyricsSong").textContent=track.title;
+  lyricsInput.value=storageGet("lyrics:"+lyricsPath)||"";
+  lyricsStatus.textContent=lyricsInput.value?"저장된 가사를 불러왔습니다.":"저장된 가사가 없습니다. 직접 입력해 주세요.";
+  lyricsDialog.showModal();
+});
+document.getElementById("lyricsClose").addEventListener("click",()=>lyricsDialog.close());
+document.getElementById("lyricsSave").addEventListener("click",()=>{
+  if(!lyricsPath)return;
+  lyricsStatus.textContent=storageSet("lyrics:"+lyricsPath,lyricsInput.value)?"이 브라우저에 가사를 저장했습니다.":"가사를 저장하지 못했습니다. 저장 공간을 확인해 주세요.";
+});
+document.getElementById("lyricsDelete").addEventListener("click",()=>{
+  if(!lyricsPath)return;
+  if(!confirm("이 곡에 저장한 가사를 삭제할까요?"))return;
+  lyricsStatus.textContent=storageDelete("lyrics:"+lyricsPath)?"저장된 가사를 삭제했습니다.":"가사 삭제에 실패했습니다.";
+  lyricsInput.value="";
+});
 
 const tabList = document.getElementById("tabList"), tabLineup = document.getElementById("tabLineup"),
       tabDream = document.getElementById("tabDream");
@@ -696,6 +820,9 @@ function switchTab(name){
   viewList.classList.toggle("hidden", name!=="list");
   viewLineup.classList.toggle("hidden", name!=="lineup");
   viewDream.classList.toggle("hidden", name!=="dream");
+  tabList.setAttribute("aria-pressed",name==="list");
+  tabLineup.setAttribute("aria-pressed",name==="lineup");
+  tabDream.setAttribute("aria-pressed",name==="dream");
 }
 tabList.addEventListener("click", ()=>switchTab("list"));
 tabLineup.addEventListener("click", ()=>switchTab("lineup"));

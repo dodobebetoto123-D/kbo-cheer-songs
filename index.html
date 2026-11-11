@@ -254,7 +254,7 @@
   <div id="np">
     <div class="np-head">
       <div>
-        <div id="npTitle">팀을 고르고 곡을 눌러봐</div>
+        <div id="npTitle" aria-live="polite">팀을 고르고 곡을 눌러봐</div>
         <div id="npSub">KBO 응원가 플레이어</div>
       </div>
       <button type="button" id="lyricsBtn" class="lyrics-toggle" disabled>가사 보기</button>
@@ -429,6 +429,12 @@ const TEAMS = {
   }
 };
 
+document.querySelectorAll(".teamcard[data-team]").forEach(card=>{
+  const team=TEAMS[card.dataset.team];
+  if(!team)return;
+  const count=team.players.length+team.teamSongs.length+(team.intro?1:0);
+  card.querySelector(".tc-sub").textContent=count+"곡 · 라인업 모드";
+});
 function buildSongs(t){
   const arr = [];
   if(t.intro) arr.push({ title: t.intro.title, path: t.dir + "/" + t.intro.file, cat: "intro" });

@@ -94,6 +94,11 @@
   .cbtn .ic{width:26px;height:26px}
   #playBtn{background:var(--blue2);width:56px;height:56px;border-radius:50%}
   #playBtn .ic{width:26px;height:26px}
+  .search-label{display:block;color:var(--sub);font-size:13px;font-weight:700;margin:12px 2px 7px}
+  #playerSearch{width:100%;padding:13px 14px;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:12px;font-size:15px}
+  #playerSearch::placeholder{color:var(--sub)}
+  #playerSearch:focus{outline:2px solid var(--sky);outline-offset:2px}
+  .search-empty{color:var(--sub);text-align:center;padding:18px 0;font-size:14px}
   .hidden{display:none}
 </style>
 </head>
@@ -171,7 +176,11 @@
     </button>
   </section>
 
-  <section id="viewList" class="hidden"></section>
+  <section id="viewList" class="hidden">
+    <label class="search-label" for="playerSearch">선수 검색</label>
+    <input id="playerSearch" type="search" placeholder="선수 이름 입력" autocomplete="off" aria-controls="songResults">
+    <div id="songResults"></div>
+  </section>
 
   <section id="viewLineup" class="hidden">
     <p class="hint">1번부터 9번까지 타순에 선수를 넣어봐. 재생하면 짠 순서대로 쭉 나와.</p>
@@ -385,6 +394,8 @@ const viewList = document.getElementById("viewList");
 const viewLineup = document.getElementById("viewLineup");
 const viewDream = document.getElementById("viewDream");
 const slotsEl = document.getElementById("slots");
+const playerSearch = document.getElementById("playerSearch");
+const songResults = document.getElementById("songResults");
 
 function rowHTML(tr){
   const idx = songs.indexOf(tr);
@@ -394,19 +405,35 @@ function rowHTML(tr){
 }
 function group(icon, title, sub, items, cat){
   return `<div class="group-head"><h2><span class="ic">${icon}</span>${title}<span class="sub">${sub}</span></h2>
-    <button class="playall" data-cat="${cat}"><span class="ic">${IC.play}</span>전체 재생</button></div>
+    ${items.length ? `<button class="playall" data-cat="${cat}"><span class="ic">${IC.play}</span>전체 재생</button>` : ""}</div>
     <div>${items.map(rowHTML).join("")}</div>`;
 }
-function buildList(){
-  const intro = songs.filter(s=>s.cat==="intro");
-  const players = songs.filter(s=>s.cat==="player");
-  const team = songs.filter(s=>s.cat==="team");
-  let h = "";
-  if(intro.length) h += group(IC.mic, "라인업송", "경기 시작!", intro, "intro");
-  h += group(IC.users, "선수 응원가", players.length + "명", players, "player");
-  if(team.length) h += group(IC.flag, "팀 응원가", team.length + "곡", team, "team");
-  viewList.innerHTML = h;
+function matchingPlayers(){
+  const query = playerSearch.value.trim().toLocaleLowerCase();
+  return songs.filter(s=>s.cat==="player" && s.title.toLocaleLowerCase().includes(query));
 }
+function buildList(){
+  const query = playerSearch.value.trim();
+  const players = matchingPlayers();
+  let h = "";
+  if(query){
+    h += group(IC.users, "선수 검색 결과", players.length + "명", players, "player");
+    if(!players.length) h += '<p class="search-empty" role="status">검색 결과가 없습니다.</p>';
+  } else {
+    const intro = songs.filter(s=>s.cat==="intro");
+    const team = songs.filter(s=>s.cat==="team");
+    if(intro.length) h += group(IC.mic, "라인업송", "경기 시작!", intro, "intro");
+    h += group(IC.users, "선수 응원가", players.length + "명", players, "player");
+    if(team.length) h += group(IC.flag, "팀 응원가", team.length + "곡", team, "team");
+  }
+  songResults.innerHTML = h;
+  if(queue[qi]){
+    songResults.querySelectorAll(".row").forEach(row=>{
+      row.classList.toggle("playing", row.dataset.path===queue[qi].path);
+    });
+  }
+}
+playerSearch.addEventListener("input", buildList);
 function buildSlots(){
   let h = "";
   for(let i=0;i<9;i++){
@@ -475,6 +502,7 @@ function selectTeam(key){
   else { badge.classList.add("ic"); badge.innerHTML = IC.baseball; }
   document.getElementById("hdrTitle").textContent = cur.name + " 응원가";
   document.getElementById("hdrSub").textContent = cur.sub;
+  playerSearch.value = "";
   buildList();
   buildSlots();
   document.getElementById("viewHome").classList.add("hidden");
@@ -564,13 +592,16 @@ viewList.addEventListener("click", e=>{
   const pa = e.target.closest(".playall");
   if(pa){
     const cat = pa.dataset.cat;
-    const items = cat==="intro" ? songs : songs.filter(s=>s.cat===cat);
-    setQueue(items, 0); return;
+    const items = playerSearch.value.trim() ? matchingPlayers() :
+      cat==="intro" ? songs : songs.filter(s=>s.cat===cat);
+    if(items.length) setQueue(items, 0);
+    return;
   }
   const row = e.target.closest(".row");
   if(row){
-    const tr = songs.find(s=>s.path===row.dataset.path);
-    if(tr) setQueue(songs, songs.indexOf(tr));
+    const items = playerSearch.value.trim() ? matchingPlayers() : songs;
+    const tr = items.find(s=>s.path===row.dataset.path);
+    if(tr) setQueue(items, items.indexOf(tr));
   }
 });
 
